@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+
+{% block title %}{{ section.title }} — {{ config.title }}{% endblock %}
+
+{% block content %}
+<section class="page">
+  <div class="container">
+    <div class="page__inner">
+      <h1>{{ section.title }}</h1>
+      {% if section.description %}
+        <p class="hero__lede" style="margin-bottom: 2.5rem;">{{ section.description }}</p>
+      {% endif %}
+
+      {% if section.pages %}
+        <ul class="posts">
+          {% for page in section.pages %}
+            <li class="post-card">
+              {% if page.date %}
+                <p class="meta">{{ page.date | date(format="%Y-%m-%d") }}</p>
+              {% endif %}
+              <h2><a href="{{ page.permalink }}">{{ page.title }}</a></h2>
+              {% if page.description or page.summary %}
+                <p class="post-card__excerpt">{{ page.description | default(value=page.summary | striptags | truncate(length=240)) }}</p>
+              {% endif %}
+            </li>
+          {% endfor %}
+        </ul>
+      {% else %}
+        <p class="post-card__excerpt">No posts yet — check back soon.</p>
+      {% endif %}
+
+      {% if section.content %}
+        <div style="margin-top: 3rem;">{{ section.content | safe }}</div>
+      {% endif %}
+    </div>
+  </div>
+</section>
+{% endblock %}

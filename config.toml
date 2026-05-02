@@ -1,0 +1,26 @@
+base_url = "https://yoebuild.org"
+title = "[yoe]"
+description = "An embedded Linux build system for teams shipping modern edge products. Native builds, language-native package managers, AI as a first-class interface."
+default_language = "en"
+compile_sass = true
+build_search_index = false
+generate_feeds = true
+feed_filenames = ["atom.xml"]
+
+taxonomies = [
+  { name = "tags", feed = true },
+]
+
+[markdown]
+smart_punctuation = true
+external_links_target_blank = true
+external_links_no_referrer = true
+
+[markdown.highlighting]
+theme = "catppuccin-mocha"
+
+[extra]
+author = "Yoe"
+github_url = "https://github.com/YoeDistro/yoe"
+yoedistro_url = "https://yoedistro.org/"
+copyright_year = "2026"

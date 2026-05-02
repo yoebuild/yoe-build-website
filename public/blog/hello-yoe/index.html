@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Hello, [yoe] — [yoe]</title>
+  <meta name="description" content="Why we started over from the Yoe Distribution and built a new embedded Linux build system from scratch.">
+
+  
+  <meta property="og:title" content="[yoe]">
+  <meta property="og:description" content="An embedded Linux build system for teams shipping modern edge products. Native builds, language-native package managers, AI as a first-class interface.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https:&#x2F;&#x2F;yoebuild.org&#x2F;blog&#x2F;hello-yoe&#x2F;">
+  <meta property="og:image" content="https://yoebuild.org/images/yoe-logo-square.png?h=0f2583b6003caabb00a8">
+  <meta name="twitter:card" content="summary">
+
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:ital,wght@1,700;1,800&family=Fraunces:ital,opsz,wght@1,9..144,300;1,9..144,400&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="https://yoebuild.org/main.css?h=3b4bd255d3cda7fe621a">
+  <link rel="icon" type="image/svg+xml" href="https://yoebuild.org/images/yoe-logo-amber.svg">
+  
+    <link rel="alternate" type="application/atom+xml" title="[yoe] feed" href="https://yoebuild.org/atom.xml">
+  
+  
+</head>
+<body>
+  <header class="site-header">
+    <div class="container">
+      <a href="https://yoebuild.org" class="brand">
+        <img src="https://yoebuild.org/images/yoe-logo-amber.svg" alt="[yoe]">
+      </a>
+      <nav class="site-nav">
+        <a href="https://yoebuild.org/blog">Blog</a>
+        <a href="https://github.com/YoeDistro/yoe#-documentation" target="_blank" rel="noopener">Docs</a>
+        <a href="mailto:info@yoebuild.org?subject=%5Byoe%5D%20question">Contact</a>
+        <a href="https:&#x2F;&#x2F;github.com&#x2F;YoeDistro&#x2F;yoe" class="nav-cta" target="_blank" rel="noopener">GitHub</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    
+<article class="page">
+  <div class="container">
+    <div class="page__inner">
+      <h1>Hello, [yoe]</h1>
+
+      
+      <div class="meta">
+        2026-05-02
+        
+          &nbsp;·&nbsp;
+          
+            <a href="https://yoebuild.org/tags/announcement/">announcement</a>
+          
+        
+      </div>
+      
+
+      <p>After years of maintaining and shipping products with the
+<a rel="noopener noreferrer external" target="_blank" href="https://yoedistro.org/">Yoe Distribution</a>, we kept running into the same
+walls — most of them not technical, but cultural to the way embedded Linux has
+always been built. We started over, took the lessons that mattered, and wrote
+the tool we always wanted.</p>
+<h2 id="what-we-kept">What we kept</h2>
+<ul>
+<li><strong>Machine abstraction and image composition.</strong> Yocto got a lot right here.</li>
+<li><strong>Module composition.</strong> Pulling units from GitHub URLs scales to vendor BSPs.</li>
+<li><strong>Tracking upstream closely.</strong> The cloud has been doing this for a decade.</li>
+</ul>
+<h2 id="what-we-dropped">What we dropped</h2>
+<ul>
+<li><strong>Cross-compilation as the default.</strong> Modern ARM and RISC-V boards build
+natively at full speed. Cloud CI runs arm64 cheaper than ever. QEMU user-mode
+emulation covers the rest.</li>
+<li><strong>The SDK boundary.</strong> The same Go binary builds the kernel, the rootfs, and
+the application. No frozen sysroot, no drift, no “works on my SDK version.”</li>
+<li><strong>Reinventing dependency resolution.</strong> Cargo, Go modules, pip, and npm
+already solved this. <code>[yoe]</code> composes with them instead of replacing them.</li>
+<li><strong>Generated shell scripts.</strong> When something fails, you should be reading the
+code you wrote — not a stack trace ten layers deep in machine output.</li>
+</ul>
+<h2 id="what-we-re-betting-on">What we’re betting on</h2>
+<ul>
+<li><strong>AI as a first-class interface.</strong> Starlark units, queryable graphs,
+structured logs. An assistant that understands the system can take the
+cognitive load of “which knob, and why” off the developer.</li>
+<li><strong>One tool, three interfaces.</strong> AI conversation, interactive TUI, traditional
+CLI — same engine, same commands. Use whichever fits the moment.</li>
+<li><strong>Functional equivalence over bit-for-bit reproducibility.</strong> Hermetic builds
+and content-addressed input hashing without spending 20 years patching
+upstream.</li>
+</ul>
+<p><code>[yoe]</code> is pre-1.0 and moving fast. Try it, break it, tell us where it broke.</p>
+<p>— Cliff Brake</p>
+
+    </div>
+  </div>
+</article>
+
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <div>
+        <span class="yoe-mark">[yoe]</span> &middot; 2026 &middot;
+        Apache 2.0
+      </div>
+      <div>
+        <a href="https:&#x2F;&#x2F;github.com&#x2F;YoeDistro&#x2F;yoe" target="_blank" rel="noopener">GitHub</a>
+        &nbsp;&middot;&nbsp;
+        <a href="https://yoebuild.org/blog">Blog</a>
+        &nbsp;&middot;&nbsp;
+        <a href="mailto:info@yoebuild.org?subject=%5Byoe%5D%20question">info@yoebuild.org</a>
+        &nbsp;&middot;&nbsp;
+        <a href="https:&#x2F;&#x2F;yoedistro.org&#x2F;" target="_blank" rel="noopener">Yoe Distribution</a>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>

@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="{{ lang }}">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% block title %}{{ config.title }}{% endblock %}</title>
+  <meta name="description" content="{% block description %}{{ config.description }}{% endblock %}">
+
+  {# Open Graph / social #}
+  <meta property="og:title" content="{% block og_title %}{{ config.title }}{% endblock %}">
+  <meta property="og:description" content="{% block og_description %}{{ config.description }}{% endblock %}">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="{{ current_url | default(value=config.base_url) }}">
+  <meta property="og:image" content="{{ get_url(path='images/yoe-logo-square.png', cachebust=true) }}">
+  <meta name="twitter:card" content="summary">
+
+  {# Fonts: Inter + JetBrains Mono via Google Fonts #}
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:ital,wght@1,700;1,800&family=Fraunces:ital,opsz,wght@1,9..144,300;1,9..144,400&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="{{ get_url(path='main.css', cachebust=true) }}">
+  <link rel="icon" type="image/svg+xml" href="{{ get_url(path='images/yoe-logo-amber.svg') }}">
+  {% if config.generate_feeds %}
+    <link rel="alternate" type="application/atom+xml" title="{{ config.title }} feed" href="{{ get_url(path='atom.xml', trailing_slash=false) }}">
+  {% endif %}
+  {% block head_extra %}{% endblock %}
+</head>
+<body>
+  <header class="site-header">
+    <div class="container">
+      <a href="{{ get_url(path='/') }}" class="brand">
+        <img src="{{ get_url(path='images/yoe-logo-amber.svg') }}" alt="[yoe]">
+      </a>
+      <nav class="site-nav">
+        <a href="{{ get_url(path='blog/') }}">Blog</a>
+        <a href="https://github.com/YoeDistro/yoe#-documentation" target="_blank" rel="noopener">Docs</a>
+        <a href="mailto:info@yoebuild.org?subject=%5Byoe%5D%20question">Contact</a>
+        <a href="{{ config.extra.github_url }}" class="nav-cta" target="_blank" rel="noopener">GitHub</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    {% block content %}{% endblock %}
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <div>
+        <span class="yoe-mark">[yoe]</span> &middot; {{ config.extra.copyright_year }} &middot;
+        Apache 2.0
+      </div>
+      <div>
+        <a href="{{ config.extra.github_url }}" target="_blank" rel="noopener">GitHub</a>
+        &nbsp;&middot;&nbsp;
+        <a href="{{ get_url(path='blog/') }}">Blog</a>
+        &nbsp;&middot;&nbsp;
+        <a href="mailto:info@yoebuild.org?subject=%5Byoe%5D%20question">info@yoebuild.org</a>
+        &nbsp;&middot;&nbsp;
+        <a href="{{ config.extra.yoedistro_url }}" target="_blank" rel="noopener">Yoe Distribution</a>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>

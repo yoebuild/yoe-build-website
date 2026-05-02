@@ -1,0 +1,193 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<section class="hero">
+  <div class="container">
+    <div class="hero__eyebrow">Embedded Linux build system</div>
+    <h1>Embedded Linux — <em class="hero-emphasis">without tears</em></h1>
+    <p class="hero__lede">
+      Native builds. Modern languages first-class. AI that actually understands the
+      system. One tool from your laptop to production — no SDKs, no
+      cross-compile rituals, no rebuild-the-world for a config tweak.
+    </p>
+    <div class="hero__cta">
+      <a href="#get-started" class="btn btn--primary">Get started →</a>
+      <a href="{{ config.extra.github_url }}" class="btn btn--ghost" target="_blank" rel="noopener">Star on GitHub</a>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="section-head">
+      <div class="section-head__eyebrow">The status quo</div>
+      <h2>Building for the edge shouldn't feel like 2008.</h2>
+      <p class="section-head__lede">
+        Most embedded Linux toolchains were designed for an era of slow ARM hardware,
+        scarce CI, and frozen SDKs. They still work — they're just out of step with
+        today's technology.
+      </p>
+    </div>
+
+    <div class="pain">
+      <div class="pain__item">
+        <h3>Cross-compile gymnastics</h3>
+        <p>Sysroot management, host contamination, mismatched <code>pkg-config</code>. Time spent fighting toolchains, not shipping features.</p>
+      </div>
+      <div class="pain__item">
+        <h3>SDK drift</h3>
+        <p>OS team builds an SDK. App team uses it. Six months later, "works on my SDK version" becomes a JIRA epic.</p>
+      </div>
+      <div class="pain__item">
+        <h3>Stack traces from generated shell</h3>
+        <p>A failure ten layers deep in machine-generated bash, and the actual fix is in a recipe you didn't write.</p>
+      </div>
+      <div class="pain__item">
+        <h3>Modern languages are second-class</h3>
+        <p>Go, Rust, Python wheels — bolted on after the fact, when they should be where the work happens now.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section section--alt">
+  <div class="container">
+    <div class="section-head">
+      <div class="section-head__eyebrow">The promise</div>
+      <h2>One tool. Every layer. Real speed.</h2>
+      <p class="section-head__lede">
+        <span class="yoe-mark">[yoe]</span> is a single Go binary that handles the entire build flow —
+        from fetching sources, to sandboxed compilation, to bootable disk images. Three
+        interfaces, same engine: AI conversation, an interactive TUI, and a traditional CLI.
+      </p>
+    </div>
+
+    <div class="cards">
+      <div class="card">
+        <div class="card__icon">01 / Native</div>
+        <h3>No cross-compilation</h3>
+        <p>Build ARM and RISC-V on a Mac, on real hardware, or in cloud CI. QEMU user-mode emulation transparently runs foreign-arch containers — same binary, native pipeline, no toolchain ceremony.</p>
+      </div>
+      <div class="card">
+        <div class="card__icon">02 / Languages</div>
+        <h3>Cargo, Go modules, pip — as-is</h3>
+        <p>Modern languages already solved dependency resolution, caching, and reproducibility. <span class="yoe-mark">[yoe]</span> uses what they ship instead of reinventing it. Even pre-built PyPI wheels just work.</p>
+      </div>
+      <div class="card">
+        <div class="card__icon">03 / AI</div>
+        <h3>AI as a first-class interface</h3>
+        <p>Starlark units, queryable dependency graphs, structured logs. An assistant can create units from a URL, diagnose a failed build, audit CVEs, and trace why a package is in your image.</p>
+      </div>
+      <div class="card">
+        <div class="card__icon">04 / No SDK</div>
+        <h3>Same tool, system to app</h3>
+        <p>System engineers and application developers run the same binary against the same config. New hire clones the repo, types <code>yoe</code>, ships.</p>
+      </div>
+      <div class="card">
+        <div class="card__icon">05 / Cache</div>
+        <h3>Cached at the unit level</h3>
+        <p>Every unit produces a content-addressed apk. Most developers never rebuild — they pull. Local, team, and global cache layers, no global lock.</p>
+      </div>
+      <div class="card">
+        <div class="card__icon">06 / Sandboxed</div>
+        <h3>Per-unit container, bwrap-isolated</h3>
+        <p>Each unit runs in its own Docker container with a bubblewrap sandbox. Toolchain pinning per-unit; no host pollution; no leaks between builds.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="get-started">
+  <div class="container">
+    <div class="demo">
+      <div class="demo__copy">
+        <div class="section-head__eyebrow">Get started</div>
+        <h2>From zero to bootable image in minutes.</h2>
+        <p>
+          One Go binary, Docker, and Git is all you need. No global state, no hidden
+          caches, no SDK to install. The first build assembles a Docker
+          toolchain container, fetches default unit modules, and produces a
+          bootable QEMU image.
+        </p>
+        <p>
+          For ARM64, register QEMU user-mode once with
+          <code>yoe container binfmt</code>, then add
+          <code>--machine qemu-arm64</code>. The build runs inside a real ARM64
+          container, transparently emulated by your host kernel.
+        </p>
+        <p>
+          <a href="https://github.com/YoeDistro/yoe#-getting-started" class="btn btn--ghost" target="_blank" rel="noopener">Full quickstart →</a>
+        </p>
+      </div>
+      <div class="demo__code">
+        <div class="demo__code-header">~/yoe-test &nbsp;·&nbsp; bash</div>
+<pre><code class="language-sh"># Download the binary (Linux x86_64)
+curl -L https://github.com/YoeDistro/yoe/releases/latest/download/yoe-Linux-x86_64 -o yoe
+chmod +x yoe &amp;&amp; mv yoe ~/bin/
+
+# Create a project, build, run
+yoe init yoe-test
+cd yoe-test
+yoe build base-image
+yoe run base-image
+</code></pre>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section section--alt">
+  <div class="container">
+    <div class="section-head">
+      <div class="section-head__eyebrow">Why now</div>
+      <h2>The pieces finally lined up.</h2>
+      <p class="section-head__lede">
+        A decade ago, this combination wasn't realistic. Three things changed at once.
+      </p>
+    </div>
+
+    <div class="cards">
+      <div class="card">
+        <div class="card__icon">Hardware</div>
+        <h3>ARM &amp; RISC-V build at full speed</h3>
+        <p>Modern dev boards and cloud instances (AWS Graviton, Hetzner CAX) run native arm64 builds at full clock. QEMU user-mode covers the rest. The cross-toolchain isn't necessary anymore — it's just inertia.</p>
+      </div>
+      <div class="card">
+        <div class="card__icon">Ecosystems</div>
+        <h3>Languages bring their own tools</h3>
+        <p>Cargo, Go modules, pip, npm, Zig — they already handle resolution, caching, lockfiles, and reproducibility. A build system in 2026 should compose with these, not reimplement them.</p>
+      </div>
+      <div class="card">
+        <div class="card__icon">AI</div>
+        <h3>An assistant can carry the load</h3>
+        <p>The hardest part of embedded Linux isn't writing recipes — it's knowing which knobs to turn and why. Structured Starlark and a queryable graph let an AI do the legwork instead of asking the developer to memorize a build system's quirks.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="cta-strip">
+  <div class="container">
+    <h2>Ship modern edge products <span class="speed">faster</span>.</h2>
+    <p>
+      Build for ARM, RISC-V, and x86 with the same tool. No cross-compile, no SDK
+      handoff, no rebuild-on-config-change. Pre-1.0 and moving fast — try it and
+      tell us where it breaks.
+    </p>
+    <div class="hero__cta" style="justify-content: center;">
+      <a href="https://github.com/YoeDistro/yoe#-getting-started" class="btn btn--primary" target="_blank" rel="noopener">Read the quickstart →</a>
+      <a href="{{ get_url(path='blog/') }}" class="btn btn--ghost">Latest from the blog</a>
+    </div>
+  </div>
+</section>
+
+<section class="contact-strip">
+  <div class="container">
+    <h3>Questions, feedback, or commercial support?</h3>
+    <p>We'd like to hear from you — about a board you're targeting, a unit you can't get to build, or a contract you'd like help with.</p>
+    <a href="mailto:info@yoebuild.org?subject=%5Byoe%5D%20question" class="btn btn--primary">info@yoebuild.org →</a>
+  </div>
+</section>
+
+{% endblock %}

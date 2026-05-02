@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en">
+    <title>[yoe] - announcement</title>
+    <subtitle>An embedded Linux build system for teams shipping modern edge products. Native builds, language-native package managers, AI as a first-class interface.</subtitle>
+    <link rel="self" type="application/atom+xml" href="https://yoebuild.org/tags/announcement/atom.xml"/>
+    <link rel="alternate" type="text/html" href="https://yoebuild.org"/>
+    <generator uri="https://www.getzola.org/">Zola</generator>
+    <updated>2026-05-02T00:00:00+00:00</updated>
+    <id>https://yoebuild.org/tags/announcement/atom.xml</id>
+    <entry xml:lang="en">
+        <title>Hello, [yoe]</title>
+        <published>2026-05-02T00:00:00+00:00</published>
+        <updated>2026-05-02T00:00:00+00:00</updated>
+        
+        <author>
+          <name>
+            
+              Unknown
+            
+          </name>
+        </author>
+        
+        <link rel="alternate" type="text/html" href="https://yoebuild.org/blog/hello-yoe/"/>
+        <id>https://yoebuild.org/blog/hello-yoe/</id>
+        
+        <content type="html" xml:base="https://yoebuild.org/blog/hello-yoe/">&lt;p&gt;After years of maintaining and shipping products with the
+&lt;a rel=&quot;noopener noreferrer external&quot; target=&quot;_blank&quot; href=&quot;https:&#x2F;&#x2F;yoedistro.org&#x2F;&quot;&gt;Yoe Distribution&lt;&#x2F;a&gt;, we kept running into the same
+walls — most of them not technical, but cultural to the way embedded Linux has
+always been built. We started over, took the lessons that mattered, and wrote
+the tool we always wanted.&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;what-we-kept&quot;&gt;What we kept&lt;&#x2F;h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Machine abstraction and image composition.&lt;&#x2F;strong&gt; Yocto got a lot right here.&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;strong&gt;Module composition.&lt;&#x2F;strong&gt; Pulling units from GitHub URLs scales to vendor BSPs.&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;strong&gt;Tracking upstream closely.&lt;&#x2F;strong&gt; The cloud has been doing this for a decade.&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;h2 id=&quot;what-we-dropped&quot;&gt;What we dropped&lt;&#x2F;h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Cross-compilation as the default.&lt;&#x2F;strong&gt; Modern ARM and RISC-V boards build
+natively at full speed. Cloud CI runs arm64 cheaper than ever. QEMU user-mode
+emulation covers the rest.&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;strong&gt;The SDK boundary.&lt;&#x2F;strong&gt; The same Go binary builds the kernel, the rootfs, and
+the application. No frozen sysroot, no drift, no “works on my SDK version.”&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;strong&gt;Reinventing dependency resolution.&lt;&#x2F;strong&gt; Cargo, Go modules, pip, and npm
+already solved this. &lt;code&gt;[yoe]&lt;&#x2F;code&gt; composes with them instead of replacing them.&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;strong&gt;Generated shell scripts.&lt;&#x2F;strong&gt; When something fails, you should be reading the
+code you wrote — not a stack trace ten layers deep in machine output.&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;h2 id=&quot;what-we-re-betting-on&quot;&gt;What we’re betting on&lt;&#x2F;h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;AI as a first-class interface.&lt;&#x2F;strong&gt; Starlark units, queryable graphs,
+structured logs. An assistant that understands the system can take the
+cognitive load of “which knob, and why” off the developer.&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;strong&gt;One tool, three interfaces.&lt;&#x2F;strong&gt; AI conversation, interactive TUI, traditional
+CLI — same engine, same commands. Use whichever fits the moment.&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;strong&gt;Functional equivalence over bit-for-bit reproducibility.&lt;&#x2F;strong&gt; Hermetic builds
+and content-addressed input hashing without spending 20 years patching
+upstream.&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;p&gt;&lt;code&gt;[yoe]&lt;&#x2F;code&gt; is pre-1.0 and moving fast. Try it, break it, tell us where it broke.&lt;&#x2F;p&gt;
+&lt;p&gt;— Cliff Brake&lt;&#x2F;p&gt;
+</content>
+        
+    </entry>
+</feed>
