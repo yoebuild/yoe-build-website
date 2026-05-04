@@ -36,7 +36,7 @@
         <a href="https://yoebuild.org/blog">Blog</a>
         <a href="https://docs.yoebuild.org/" target="_blank" rel="noopener">Docs</a>
         <a href="mailto:info@yoebuild.org?subject=%5Byoe%5D%20question">Contact</a>
-        <a href="https:&#x2F;&#x2F;github.com&#x2F;YoeDistro&#x2F;yoe" class="nav-cta" target="_blank" rel="noopener">GitHub</a>
+        <a href="https:&#x2F;&#x2F;github.com&#x2F;yoebuild&#x2F;yoe" class="nav-cta" target="_blank" rel="noopener">GitHub</a>
       </nav>
     </div>
   </header>
@@ -62,9 +62,9 @@
 
       <p>After years of maintaining and shipping products with the
 <a rel="noopener noreferrer external" target="_blank" href="https://yoedistro.org/">Yoe Distribution</a>, we kept running into the same
-walls — most of them not technical, but cultural to the way embedded Linux has
-always been built. We started over, took the lessons that mattered, and wrote
-the tool we always wanted.</p>
+friction — much of it inherited from how embedded Linux has historically been
+built. We started fresh, kept the lessons that mattered most, and built the
+tool we always wanted to use.</p>
 <h2 id="what-we-kept">What we kept</h2>
 <ul>
 <li><strong>Machine abstraction and image composition.</strong> Yocto got a lot right here.</li>
@@ -76,12 +76,13 @@ the tool we always wanted.</p>
 <li><strong>Cross-compilation as the default.</strong> Modern ARM and RISC-V boards build
 natively at full speed. Cloud CI runs arm64 cheaper than ever. QEMU user-mode
 emulation covers the rest.</li>
-<li><strong>The SDK boundary.</strong> The same Go binary builds the kernel, the rootfs, and
-the application. No frozen sysroot, no drift, no “works on my SDK version.”</li>
+<li><strong>The SDK boundary.</strong> One Go binary builds the kernel, the rootfs, and the
+application — no frozen sysroot, no drift between teams, one shared view of
+the build.</li>
 <li><strong>Reinventing dependency resolution.</strong> Cargo, Go modules, pip, and npm
 already solved this. <code>[yoe]</code> composes with them instead of replacing them.</li>
-<li><strong>Generated shell scripts.</strong> When something fails, you should be reading the
-code you wrote — not a stack trace ten layers deep in machine output.</li>
+<li><strong>Generated shell scripts.</strong> When something fails, you read the code you
+wrote — not a stack trace deep in machine-generated output.</li>
 </ul>
 <h2 id="what-we-re-betting-on">What we’re betting on</h2>
 <ul>
@@ -94,7 +95,9 @@ CLI — same engine, same commands. Use whichever fits the moment.</li>
 and content-addressed input hashing without spending 20 years patching
 upstream.</li>
 </ul>
-<p><code>[yoe]</code> is pre-1.0 and moving fast. Try it, break it, tell us where it broke.</p>
+<p><code>[yoe]</code> is pre-1.0 and moving fast. Take it for a spin and let us know how it
+goes — we’d love to hear what works for you and what doesn’t.</p>
+<p>The opportunity is here … come build the future of embedded Linux with us.</p>
 <p>— Cliff Brake</p>
 
     </div>
@@ -110,7 +113,9 @@ upstream.</li>
         Apache 2.0
       </div>
       <div>
-        <a href="https:&#x2F;&#x2F;github.com&#x2F;YoeDistro&#x2F;yoe" target="_blank" rel="noopener">GitHub</a>
+        <a href="https:&#x2F;&#x2F;github.com&#x2F;yoebuild&#x2F;yoe" target="_blank" rel="noopener">GitHub</a>
+        &nbsp;&middot;&nbsp;
+        <a href="https:&#x2F;&#x2F;github.com&#x2F;orgs&#x2F;yoebuild&#x2F;discussions" target="_blank" rel="noopener">Discussions</a>
         &nbsp;&middot;&nbsp;
         <a href="https://yoebuild.org/blog">Blog</a>
         &nbsp;&middot;&nbsp;

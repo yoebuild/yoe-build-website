@@ -1,6 +1,6 @@
 # yoe-build-web-site
 
-Static website for [`[yoe]`](https://github.com/YoeDistro/yoe), built with
+Static website for [`[yoe]`](https://github.com/yoebuild/yoe), built with
 [Zola](https://www.getzola.org/).
 
 ## Local development

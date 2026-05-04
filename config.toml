@@ -21,6 +21,7 @@ theme = "catppuccin-mocha"
 
 [extra]
 author = "Yoe"
-github_url = "https://github.com/YoeDistro/yoe"
+github_url = "https://github.com/yoebuild/yoe"
+discussions_url = "https://github.com/orgs/yoebuild/discussions"
 yoedistro_url = "https://yoedistro.org/"
 copyright_year = "2026"

@@ -7,9 +7,9 @@
     <div class="hero__eyebrow">Embedded Linux build system</div>
     <h1>Embedded Linux — <em class="hero-emphasis">without tears</em></h1>
     <p class="hero__lede">
-      Native builds. Modern languages first-class. AI that actually understands the
-      system. One tool from your laptop to production — no SDKs, no
-      cross-compile rituals, no rebuild-the-world for a config tweak.
+      Native builds. Modern languages first-class. AI that understands the
+      system. One tool from your laptop to production — no separate SDK, no
+      cross-compile setup, no rebuild-the-world for a small change.
     </p>
     <div class="hero__cta">
       <a href="#get-started" class="btn btn--primary">Get started →</a>
@@ -22,30 +22,41 @@
   <div class="container">
     <div class="section-head">
       <div class="section-head__eyebrow">The status quo</div>
-      <h2>Building for the edge shouldn't feel like 2008.</h2>
+      <h2>The existing systems have served us well …</h2>
       <p class="section-head__lede">
-        Most embedded Linux toolchains were designed for an era of slow ARM hardware,
-        scarce CI, and frozen SDKs. They still work — they're just out of step with
-        today's technology.
+        With all due respect for the past and those who built Yocto, Buildroot, and other
+        build systems -- these are amazing tools. They have enabled
+        us to build and maintain amazing products. They solve a real problem. However,
+        these tools were designed for an era of slow ARM hardware,
+        scarce CI, and frozen SDKs. They still work, but we are increasingly running
+        into challenges with today's problems.
       </p>
     </div>
 
     <div class="pain">
       <div class="pain__item">
-        <h3>Cross-compile gymnastics</h3>
-        <p>Sysroot management, host contamination, mismatched <code>pkg-config</code>. Time spent fighting toolchains, not shipping features.</p>
+        <h3>Cross-compilation friction</h3>
+        <p>Sysroot management, host contamination, mismatched <code>pkg-config</code> — time better spent shipping features.</p>
       </div>
       <div class="pain__item">
         <h3>SDK drift</h3>
-        <p>OS team builds an SDK. App team uses it. Six months later, "works on my SDK version" becomes a JIRA epic.</p>
+        <p>OS team builds an SDK. App team uses it. Six months later, version mismatches between teams turn into a long debugging session.</p>
       </div>
       <div class="pain__item">
         <h3>Stack traces from generated shell</h3>
-        <p>A failure ten layers deep in machine-generated bash, and the actual fix is in a recipe you didn't write.</p>
+        <p>A failure ten layers deep in machine-generated bash, and the actual fix lives in a recipe somewhere up the tree.</p>
       </div>
       <div class="pain__item">
-        <h3>Modern languages are second-class</h3>
-        <p>Go, Rust, Python wheels — bolted on after the fact, when they should be where the work happens now.</p>
+        <h3>Modern languages deserve first-class support</h3>
+        <p>Go, Rust, and Python wheels are where most edge application work happens today — they belong at the center of the build, not bolted on.</p>
+      </div>
+      <div class="pain__item">
+        <h3>Full rebuild for a small change</h3>
+        <p>Tweak a kernel config or bump a single package, and the build wants to start over from scratch. Most edits should be incremental — minutes, not hours.</p>
+      </div>
+      <div class="pain__item">
+        <h3>Updates feel like a risk event</h3>
+        <p>Modern edge devices stay connected and need security patches across their lifetime. Bumping a package or following upstream should be routine, not a dedicated engineering effort.</p>
       </div>
     </div>
   </div>
@@ -67,7 +78,7 @@
       <div class="card">
         <div class="card__icon">01 / Native</div>
         <h3>No cross-compilation</h3>
-        <p>Build ARM and RISC-V on a Mac, on real hardware, or in cloud CI. QEMU user-mode emulation transparently runs foreign-arch containers — same binary, native pipeline, no toolchain ceremony.</p>
+        <p>Build ARM and RISC-V on a Mac, on real hardware, or in cloud CI. QEMU user-mode emulation transparently runs foreign-arch containers — same binary, native pipeline, no extra toolchain setup.</p>
       </div>
       <div class="card">
         <div class="card__icon">02 / Languages</div>
@@ -117,13 +128,13 @@
           container, transparently emulated by your host kernel.
         </p>
         <p>
-          <a href="https://github.com/YoeDistro/yoe#-getting-started" class="btn btn--ghost" target="_blank" rel="noopener">Full quickstart →</a>
+          <a href="https://github.com/yoebuild/yoe#-getting-started" class="btn btn--ghost" target="_blank" rel="noopener">Full quickstart →</a>
         </p>
       </div>
       <div class="demo__code">
         <div class="demo__code-header">~/yoe-test &nbsp;·&nbsp; bash</div>
 <pre><code class="language-sh"># Download the binary (Linux x86_64)
-curl -L https://github.com/YoeDistro/yoe/releases/latest/download/yoe-Linux-x86_64 -o yoe
+curl -L https://github.com/yoebuild/yoe/releases/latest/download/yoe-Linux-x86_64 -o yoe
 chmod +x yoe &amp;&amp; mv yoe ~/bin/
 
 # Create a project, build, run
@@ -143,7 +154,7 @@ yoe run base-image
       <div class="section-head__eyebrow">Why now</div>
       <h2>The pieces finally lined up.</h2>
       <p class="section-head__lede">
-        A decade ago, this combination wasn't realistic. Three things changed at once.
+        A decade ago, this combination wasn't realistic. Things have changed.
       </p>
     </div>
 
@@ -151,7 +162,7 @@ yoe run base-image
       <div class="card">
         <div class="card__icon">Hardware</div>
         <h3>ARM &amp; RISC-V build at full speed</h3>
-        <p>Modern dev boards and cloud instances (AWS Graviton, Hetzner CAX) run native arm64 builds at full clock. QEMU user-mode covers the rest. The cross-toolchain isn't necessary anymore — it's just inertia.</p>
+        <p>Modern dev boards and cloud instances (AWS Graviton, Hetzner CAX) run native arm64 builds at full clock. QEMU user-mode covers the rest. Native builds are now practical for nearly every target, opening the door to a simpler design.</p>
       </div>
       <div class="card">
         <div class="card__icon">Ecosystems</div>
@@ -161,7 +172,7 @@ yoe run base-image
       <div class="card">
         <div class="card__icon">AI</div>
         <h3>An assistant can carry the load</h3>
-        <p>The hardest part of embedded Linux isn't writing recipes — it's knowing which knobs to turn and why. Structured Starlark and a queryable graph let an AI do the legwork instead of asking the developer to memorize a build system's quirks.</p>
+        <p>The hardest part of embedded Linux isn't writing recipes — it's knowing which knobs to turn and why. Structured Starlark and a queryable graph let an AI do the legwork, so developers can stay focused on the product instead of holding the whole build system in their head.</p>
       </div>
     </div>
   </div>
@@ -172,11 +183,14 @@ yoe run base-image
     <h2>Ship modern edge products <span class="speed">faster</span>.</h2>
     <p>
       Build for ARM, RISC-V, and x86 with the same tool. No cross-compile, no SDK
-      handoff, no rebuild-on-config-change. Pre-1.0 and moving fast — try it and
-      tell us where it breaks.
+      handoff, no rebuild-on-config-change. Pre-1.0 and moving fast — give it a
+      try and let us know how it goes.
+    </p>
+    <p>
+      The opportunity is here … come build the future of embedded Linux with us.
     </p>
     <div class="hero__cta" style="justify-content: center;">
-      <a href="https://github.com/YoeDistro/yoe#-getting-started" class="btn btn--primary" target="_blank" rel="noopener">Read the quickstart →</a>
+      <a href="https://github.com/yoebuild/yoe#-getting-started" class="btn btn--primary" target="_blank" rel="noopener">Read the quickstart →</a>
       <a href="{{ get_url(path='blog/') }}" class="btn btn--ghost">Latest from the blog</a>
     </div>
   </div>
@@ -184,9 +198,12 @@ yoe run base-image
 
 <section class="contact-strip">
   <div class="container">
-    <h3>Questions, feedback, or commercial support?</h3>
-    <p>We'd like to hear from you — about a board you're targeting, a unit you can't get to build, or a contract you'd like help with.</p>
-    <a href="mailto:info@yoebuild.org?subject=%5Byoe%5D%20question" class="btn btn--primary">info@yoebuild.org →</a>
+    <h3>Questions or feedback?</h3>
+    <p>We'd like to hear from you — about a board you're targeting or a unit you can't get to build.</p>
+    <div class="hero__cta" style="justify-content: center;">
+      <a href="{{ config.extra.discussions_url }}" class="btn btn--primary" target="_blank" rel="noopener">Join the discussion →</a>
+      <a href="mailto:info@yoebuild.org?subject=%5Byoe%5D%20question" class="btn btn--ghost">info@yoebuild.org →</a>
+    </div>
   </div>
 </section>
 

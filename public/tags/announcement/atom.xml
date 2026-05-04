@@ -25,9 +25,9 @@
         
         <content type="html" xml:base="https://yoebuild.org/blog/hello-yoe/">&lt;p&gt;After years of maintaining and shipping products with the
 &lt;a rel=&quot;noopener noreferrer external&quot; target=&quot;_blank&quot; href=&quot;https:&#x2F;&#x2F;yoedistro.org&#x2F;&quot;&gt;Yoe Distribution&lt;&#x2F;a&gt;, we kept running into the same
-walls — most of them not technical, but cultural to the way embedded Linux has
-always been built. We started over, took the lessons that mattered, and wrote
-the tool we always wanted.&lt;&#x2F;p&gt;
+friction — much of it inherited from how embedded Linux has historically been
+built. We started fresh, kept the lessons that mattered most, and built the
+tool we always wanted to use.&lt;&#x2F;p&gt;
 &lt;h2 id=&quot;what-we-kept&quot;&gt;What we kept&lt;&#x2F;h2&gt;
 &lt;ul&gt;
 &lt;li&gt;&lt;strong&gt;Machine abstraction and image composition.&lt;&#x2F;strong&gt; Yocto got a lot right here.&lt;&#x2F;li&gt;
@@ -39,12 +39,13 @@ the tool we always wanted.&lt;&#x2F;p&gt;
 &lt;li&gt;&lt;strong&gt;Cross-compilation as the default.&lt;&#x2F;strong&gt; Modern ARM and RISC-V boards build
 natively at full speed. Cloud CI runs arm64 cheaper than ever. QEMU user-mode
 emulation covers the rest.&lt;&#x2F;li&gt;
-&lt;li&gt;&lt;strong&gt;The SDK boundary.&lt;&#x2F;strong&gt; The same Go binary builds the kernel, the rootfs, and
-the application. No frozen sysroot, no drift, no “works on my SDK version.”&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;strong&gt;The SDK boundary.&lt;&#x2F;strong&gt; One Go binary builds the kernel, the rootfs, and the
+application — no frozen sysroot, no drift between teams, one shared view of
+the build.&lt;&#x2F;li&gt;
 &lt;li&gt;&lt;strong&gt;Reinventing dependency resolution.&lt;&#x2F;strong&gt; Cargo, Go modules, pip, and npm
 already solved this. &lt;code&gt;[yoe]&lt;&#x2F;code&gt; composes with them instead of replacing them.&lt;&#x2F;li&gt;
-&lt;li&gt;&lt;strong&gt;Generated shell scripts.&lt;&#x2F;strong&gt; When something fails, you should be reading the
-code you wrote — not a stack trace ten layers deep in machine output.&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;strong&gt;Generated shell scripts.&lt;&#x2F;strong&gt; When something fails, you read the code you
+wrote — not a stack trace deep in machine-generated output.&lt;&#x2F;li&gt;
 &lt;&#x2F;ul&gt;
 &lt;h2 id=&quot;what-we-re-betting-on&quot;&gt;What we’re betting on&lt;&#x2F;h2&gt;
 &lt;ul&gt;
@@ -57,7 +58,9 @@ CLI — same engine, same commands. Use whichever fits the moment.&lt;&#x2F;li&g
 and content-addressed input hashing without spending 20 years patching
 upstream.&lt;&#x2F;li&gt;
 &lt;&#x2F;ul&gt;
-&lt;p&gt;&lt;code&gt;[yoe]&lt;&#x2F;code&gt; is pre-1.0 and moving fast. Try it, break it, tell us where it broke.&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;code&gt;[yoe]&lt;&#x2F;code&gt; is pre-1.0 and moving fast. Take it for a spin and let us know how it
+goes — we’d love to hear what works for you and what doesn’t.&lt;&#x2F;p&gt;
+&lt;p&gt;The opportunity is here … come build the future of embedded Linux with us.&lt;&#x2F;p&gt;
 &lt;p&gt;— Cliff Brake&lt;&#x2F;p&gt;
 </content>
         
