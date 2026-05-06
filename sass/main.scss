@@ -208,6 +208,18 @@ main { flex: 1; }
   &:hover { color: $accent-bright; border: 0; }
 
   img { height: 56px; width: auto; }
+
+  &__tagline {
+    margin-left: 0.75rem;
+    padding-left: 0.75rem;
+    border-left: 1px solid $border;
+    font-family: $mono;
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: $text-muted;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+  }
 }
 
 .site-nav {

@@ -36,27 +36,33 @@
     <div class="pain">
       <div class="pain__item">
         <h3>Cross-compilation friction</h3>
-        <p>Sysroot management, host contamination, mismatched <code>pkg-config</code> — time better spent shipping features.</p>
+        <p>Sysroot management, host contamination, mismatched <code>pkg-config</code> — time better spent shipping
+          features.</p>
       </div>
       <div class="pain__item">
         <h3>SDK drift</h3>
-        <p>OS team builds an SDK. App team uses it. Six months later, version mismatches between teams turn into a long debugging session.</p>
+        <p>OS team builds an SDK. App team uses it. Six months later, version mismatches between teams turn into a long
+          debugging session.</p>
       </div>
       <div class="pain__item">
         <h3>Stack traces from generated shell</h3>
-        <p>A failure ten layers deep in machine-generated bash, and the actual fix lives in a recipe somewhere up the tree.</p>
+        <p>A failure ten layers deep in machine-generated bash, and the actual fix lives in a recipe somewhere up the
+          tree.</p>
       </div>
       <div class="pain__item">
         <h3>Modern languages deserve first-class support</h3>
-        <p>Go, Rust, and Python wheels are where most edge application work happens today — they belong at the center of the build, not bolted on.</p>
+        <p>Go, Rust, and Python wheels are where most edge application work happens today — they belong at the center of
+          the build, not bolted on.</p>
       </div>
       <div class="pain__item">
         <h3>Full rebuild for a small change</h3>
-        <p>Tweak a kernel config or bump a single package, and the build wants to start over from scratch. Most edits should be incremental — minutes, not hours.</p>
+        <p>Tweak a kernel config or bump a single package, and the build wants to start over from scratch. Most edits
+          should be incremental — minutes, not hours.</p>
       </div>
       <div class="pain__item">
         <h3>Updates feel like a risk event</h3>
-        <p>Modern edge devices stay connected and need security patches across their lifetime. Bumping a package or following upstream should be routine, not a dedicated engineering effort.</p>
+        <p>Modern edge devices stay connected and need security patches across their lifetime. Bumping a package or
+          following upstream should be routine, not a dedicated engineering effort.</p>
       </div>
     </div>
   </div>
@@ -78,32 +84,39 @@
       <div class="card">
         <div class="card__icon">01 / Native</div>
         <h3>No cross-compilation</h3>
-        <p>Build ARM and RISC-V on a Mac, on real hardware, or in cloud CI. QEMU user-mode emulation transparently runs foreign-arch containers — same binary, native pipeline, no extra toolchain setup.</p>
+        <p>Build ARM and RISC-V on a Mac, on real hardware, or in cloud CI. QEMU user-mode emulation transparently runs
+          foreign-arch containers — same binary, native pipeline, no extra toolchain setup.</p>
       </div>
       <div class="card">
         <div class="card__icon">02 / Languages</div>
         <h3>Cargo, Go modules, pip — as-is</h3>
-        <p>Modern languages already solved dependency resolution, caching, and reproducibility. <span class="yoe-mark">[yoe]</span> uses what they ship instead of reinventing it. Even pre-built PyPI wheels just work.</p>
+        <p>Modern languages already solved dependency resolution, caching, and reproducibility. <span
+            class="yoe-mark">[yoe]</span> uses what they ship instead of reinventing it. Even pre-built PyPI wheels just
+          work.</p>
       </div>
       <div class="card">
         <div class="card__icon">03 / AI</div>
         <h3>AI as a first-class interface</h3>
-        <p>Starlark units, queryable dependency graphs, structured logs. An assistant can create units from a URL, diagnose a failed build, audit CVEs, and trace why a package is in your image.</p>
+        <p>Starlark units, queryable dependency graphs, structured logs. An assistant can create units from a URL,
+          diagnose a failed build, audit CVEs, and trace why a package is in your image.</p>
       </div>
       <div class="card">
         <div class="card__icon">04 / No SDK</div>
         <h3>Same tool, system to app</h3>
-        <p>System engineers and application developers run the same binary against the same config. New hire clones the repo, types <code>yoe</code>, ships.</p>
+        <p>System engineers and application developers run the same binary against the same config. New hire clones the
+          repo, types <code>yoe</code>, ships.</p>
       </div>
       <div class="card">
         <div class="card__icon">05 / Cache</div>
         <h3>Cached at the unit level</h3>
-        <p>Every unit produces a content-addressed apk. Most developers never rebuild — they pull. Local, team, and global cache layers, no global lock.</p>
+        <p>Every unit produces a content-addressed apk. Most developers never rebuild — they pull. Local, team, and
+          global cache layers, no global lock.</p>
       </div>
       <div class="card">
         <div class="card__icon">06 / Sandboxed</div>
         <h3>Per-unit container, bwrap-isolated</h3>
-        <p>Each unit runs in its own Docker container with a bubblewrap sandbox. Toolchain pinning per-unit; no host pollution; no leaks between builds.</p>
+        <p>Each unit runs in its own Docker container with a bubblewrap sandbox. Toolchain pinning per-unit; no host
+          pollution; no leaks between builds.</p>
       </div>
     </div>
   </div>
@@ -128,7 +141,8 @@
           container, transparently emulated by your host kernel.
         </p>
         <p>
-          <a href="https://github.com/yoebuild/yoe#-getting-started" class="btn btn--ghost" target="_blank" rel="noopener">Full quickstart →</a>
+          <a href="https://docs.yoebuild.org/#-getting-started" class="btn btn--ghost" target="_blank"
+            rel="noopener">Full quickstart →</a>
         </p>
       </div>
       <div class="demo__code">
@@ -162,17 +176,22 @@ yoe run base-image
       <div class="card">
         <div class="card__icon">Hardware</div>
         <h3>ARM &amp; RISC-V build at full speed</h3>
-        <p>Modern dev boards and cloud instances (AWS Graviton, Hetzner CAX) run native arm64 builds at full clock. QEMU user-mode covers the rest. Native builds are now practical for nearly every target, opening the door to a simpler design.</p>
+        <p>Modern dev boards and cloud instances (AWS Graviton, Hetzner CAX) run native arm64 builds at full clock. QEMU
+          user-mode covers the rest. Native builds are now practical for nearly every target, opening the door to a
+          simpler design.</p>
       </div>
       <div class="card">
         <div class="card__icon">Ecosystems</div>
         <h3>Languages bring their own tools</h3>
-        <p>Cargo, Go modules, pip, npm, Zig — they already handle resolution, caching, lockfiles, and reproducibility. A build system in 2026 should compose with these, not reimplement them.</p>
+        <p>Cargo, Go modules, pip, npm, Zig — they already handle resolution, caching, lockfiles, and reproducibility. A
+          build system in 2026 should compose with these, not reimplement them.</p>
       </div>
       <div class="card">
         <div class="card__icon">AI</div>
         <h3>An assistant can carry the load</h3>
-        <p>The hardest part of embedded Linux isn't writing recipes — it's knowing which knobs to turn and why. Structured Starlark and a queryable graph let an AI do the legwork, so developers can stay focused on the product instead of holding the whole build system in their head.</p>
+        <p>The hardest part of embedded Linux isn't writing recipes — it's knowing which knobs to turn and why.
+          Structured Starlark and a queryable graph let an AI do the legwork, so developers can stay focused on the
+          product instead of holding the whole build system in their head.</p>
       </div>
     </div>
   </div>
@@ -190,7 +209,8 @@ yoe run base-image
       The opportunity is here … come build the future of embedded Linux with us.
     </p>
     <div class="hero__cta" style="justify-content: center;">
-      <a href="https://github.com/yoebuild/yoe#-getting-started" class="btn btn--primary" target="_blank" rel="noopener">Read the quickstart →</a>
+      <a href="https://github.com/yoebuild/yoe#-getting-started" class="btn btn--primary" target="_blank"
+        rel="noopener">Read the quickstart →</a>
       <a href="{{ get_url(path='blog/') }}" class="btn btn--ghost">Latest from the blog</a>
     </div>
   </div>
@@ -201,7 +221,8 @@ yoe run base-image
     <h3>Questions or feedback?</h3>
     <p>We'd like to hear from you — about a board you're targeting or a unit you can't get to build.</p>
     <div class="hero__cta" style="justify-content: center;">
-      <a href="{{ config.extra.discussions_url }}" class="btn btn--primary" target="_blank" rel="noopener">Join the discussion →</a>
+      <a href="{{ config.extra.discussions_url }}" class="btn btn--primary" target="_blank" rel="noopener">Join the
+        discussion →</a>
       <a href="mailto:info@yoebuild.org?subject=%5Byoe%5D%20question" class="btn btn--ghost">info@yoebuild.org →</a>
     </div>
   </div>
