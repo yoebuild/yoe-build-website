@@ -17,6 +17,10 @@ relationship with the well-established
 its principles. If you're looking for that project, head over to
 [yoedistro.org](https://yoedistro.org/).
 
+[Naming is hard](https://martinfowler.com/bliki/TwoHardThings.html), and I don't
+want to get distracted with hard things right now - that will hopefully come
+later.
+
 ## What are the biggest risks this project faces?
 
 Plenty — this is an experiment, and being honest about what could derail it
