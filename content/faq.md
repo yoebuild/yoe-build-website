@@ -120,7 +120,7 @@ If any of that resonates and you'd like to help fund or steer a piece of it,
 
 ## How will LLM costs be controlled with so much build data?
 
-We think about this a lot. A few design choices keep the cost bounded:
+A few design choices keep the cost bounded:
 
 - **The LLM isn't in the build loop.** Routine builds are deterministic Go and
   Starlark with no model calls. Cache hits, full rebuilds, image assembly — none
@@ -152,11 +152,11 @@ straightforward and work today. The global layer is the harder part — and it's
 fundamentally an operational and funding problem, not a technical one.
 
 It's the same problem Debian, Alpine, Arch, NixOS, and the language registries
-have all had to solve: someone has to pay for storage, bandwidth, and a CDN
-that scales with adoption. The answers vary — university and ISP mirror
-networks, foundations funded by donations, donated infrastructure from cloud
-providers (Fastly for PyPI, AWS for cache.nixos.org), corporate sponsors — but
-the principle is the same: **the artifacts are free, but the hosting isn't.**
+have all had to solve: someone has to pay for storage, bandwidth, and a CDN that
+scales with adoption. The answers vary — university and ISP mirror networks,
+foundations funded by donations, donated infrastructure from cloud providers
+(Fastly for PyPI, AWS for cache.nixos.org), corporate sponsors — but the
+principle is the same: **the artifacts are free, but the hosting isn't.**
 
 For `[yoe]` we plan to start small and let demand pull the model into shape:
 
@@ -168,10 +168,9 @@ For `[yoe]` we plan to start small and let demand pull the model into shape:
   prototyping what this looks like.
 - **Eventually** — a sustained hosting arrangement funded by the organizations
   that benefit most from the project. That likely means a mix of corporate
-  sponsors, mirror donations, and possibly a foundation or fiscal host. This
-  is not something one company can — or should — carry alone.
+  sponsors, mirror donations, and possibly a foundation or fiscal host. This is
+  not something one company can — or should — carry alone.
 
 If your team would depend on, or be willing to contribute to, a community apk
-cache for `[yoe]`,
-[tell us](mailto:info@yoebuild.org?subject=%5Byoe%5D%20cache) — that signal
-helps us figure out when to invest in it.
+cache for `[yoe]`, [tell us](mailto:info@yoebuild.org?subject=%5Byoe%5D%20cache)
+— that signal helps us figure out when to invest in it.
