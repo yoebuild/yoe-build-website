@@ -68,3 +68,73 @@ QEMU emulation on its own is usually fine. For a **large codebase or full
 image builds**, combine the three above: develop on x86 with QEMU, run CI on
 native ARM, and lean on the cache so nobody rebuilds anything they don't have
 to.
+
+## Who is the customer?
+
+A few overlapping audiences — and we're deliberately not optimizing for only
+one of them yet:
+
+- **Small product teams building edge devices.** Today's primary user. Teams
+  who would otherwise stand up Yocto or Buildroot but want a faster loop and
+  don't have a dedicated platform engineer to feed the build system.
+- **Application developers on embedded teams.** Engineers writing Go, Rust,
+  or Python services that run on a device, who need to integrate with the
+  base image without learning a separate SDK.
+- **System integrators and BSP authors.** Silicon vendors and consultancies
+  shipping board support, looking for a clean place to publish units
+  alongside others.
+
+We pay most attention to the first group; when `[yoe]` makes their day faster,
+the rest tends to follow. We are not targeting deep-compliance,
+frozen-SDK shops — Yocto remains the right choice there.
+
+## Is this fully open source, or is there an acquisition strategy?
+
+Apache 2.0, intentionally. The aim is closer to
+[Zephyr](https://zephyrproject.org/) than to a startup exit: a vendor-neutral
+project that multiple companies depend on, contribute to, and ship products
+with. Concretely:
+
+- **The team developing `[yoe]` today is
+  [BEC Systems](https://bec-systems.com/),** who uses it to accelerate their
+  own embedded product work. Sponsorship, support, and consulting around
+  `[yoe]` are part of how the work is funded.
+- **No exit plan, no IP holdback.** The code, units, and docs are all open.
+  There is no proprietary tier we're holding back to sell later.
+- **Potential collaborators** roughly: silicon vendors who want a clean way
+  to ship BSPs, OTA / update vendors (Mender, RAUC, ostree-based teams) who
+  want a build system that composes with their update story, edge-AI
+  platforms that need to integrate ML workloads cleanly, and consultancies
+  who would rather build on a shared base than maintain a private fork.
+- **Lateral technologies that might trade interestingly:** container
+  runtimes on the device, shared artifact / apk feed infrastructure,
+  AI workflows that span dev / devops / oncall, and bridges to the larger
+  distribution package ecosystems.
+
+If any of that resonates and you'd like to help fund or steer a piece of it,
+[come talk to us](mailto:info@yoebuild.org?subject=%5Byoe%5D%20collaboration).
+
+## How will LLM costs be controlled with so much build data?
+
+We think about this a lot. A few design choices keep the cost bounded:
+
+- **The LLM isn't in the build loop.** Routine builds are deterministic Go
+  and Starlark with no model calls. Cache hits, full rebuilds, image
+  assembly — none of those invoke a model. The AI shows up for specific
+  developer actions: creating a unit, diagnosing a failed build, asking why
+  a package is in the image, auditing for CVEs.
+- **Structured inputs, not raw logs.** Starlark units, a queryable
+  dependency graph, and structured build logs let the model work against
+  compact, semantically rich representations. "Diagnose this build failure"
+  ships the relevant unit, the failing step, and a focused window of the
+  error — not the entire log.
+- **The user supplies the model.** API keys (and, increasingly, locally
+  hosted models) come from the developer. The project doesn't need to
+  absorb model costs centrally to be useful.
+- **Smaller models for routine tasks.** Many workflows (CVE checks, license
+  audits, "why is this package here?") run fine against a smaller, cheaper
+  model. We try to default to the cheapest model that gives a good answer
+  for each task.
+
+We don't claim cost is solved. As more AI workflows ship, the right defaults
+will shift, and we'll lean on open metrics to keep them honest.
