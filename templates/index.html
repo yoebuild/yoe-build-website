@@ -25,11 +25,11 @@
       <h2>The existing systems have served us well …</h2>
       <p class="section-head__lede">
         With all due respect for the past and those who built Yocto, Buildroot, and other
-        build systems -- these are amazing tools. They have enabled
-        us to build and maintain amazing products. They solve a real problem. However,
-        these tools were designed for an era of slow ARM hardware,
-        scarce CI, and frozen SDKs. They still work, but we are increasingly running
-        into challenges with today's problems.
+        build systems — these are remarkable tools. They have enabled us to build
+        and ship real products, and they solve a real problem. However, these tools
+        were designed for an era of slow ARM hardware, scarce CI, and frozen SDKs.
+        They still work, but they're increasingly bumping up against the demands
+        of today's edge products.
       </p>
     </div>
 
@@ -46,8 +46,7 @@
       </div>
       <div class="pain__item">
         <h3>Stack traces from generated shell</h3>
-        <p>A failure ten layers deep in machine-generated bash, and the actual fix lives in a recipe somewhere up the
-          tree.</p>
+        <p>A failure ten layers deep in machine-generated bash, and the actual fix lives elsewhere in the recipe tree.</p>
       </div>
       <div class="pain__item">
         <h3>Modern languages deserve first-class support</h3>
@@ -129,7 +128,7 @@
         <div class="section-head__eyebrow">Get started</div>
         <h2>From zero to bootable image in minutes.</h2>
         <p>
-          One Go binary, Docker, and Git is all you need. No global state, no hidden
+          All you need is one Go binary, Docker, and Git. No global state, no hidden
           caches, no SDK to install. The first build assembles a Docker
           toolchain container, fetches default unit modules, and produces a
           bootable QEMU image.
@@ -168,7 +167,7 @@ yoe run base-image
       <div class="section-head__eyebrow">Why now</div>
       <h2>The pieces finally lined up.</h2>
       <p class="section-head__lede">
-        A decade ago, this combination wasn't realistic. Things have changed.
+        A decade ago, this combination wasn't realistic. Three things have changed.
       </p>
     </div>
 
@@ -184,7 +183,7 @@ yoe run base-image
         <div class="card__icon">Ecosystems</div>
         <h3>Languages bring their own tools</h3>
         <p>Cargo, Go modules, pip, npm, Zig — they already handle resolution, caching, lockfiles, and reproducibility. A
-          build system in 2026 should compose with these, not reimplement them.</p>
+          modern build system should compose with these, not reimplement them.</p>
       </div>
       <div class="card">
         <div class="card__icon">AI</div>
@@ -209,7 +208,7 @@ yoe run base-image
       The opportunity is here … come build the future of embedded Linux with us.
     </p>
     <div class="hero__cta" style="justify-content: center;">
-      <a href="https://github.com/yoebuild/yoe#-getting-started" class="btn btn--primary" target="_blank"
+      <a href="https://docs.yoebuild.org/#-getting-started" class="btn btn--primary" target="_blank"
         rel="noopener">Read the quickstart →</a>
       <a href="{{ get_url(path='blog/') }}" class="btn btn--ghost">Latest from the blog</a>
     </div>

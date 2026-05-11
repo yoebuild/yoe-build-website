@@ -58,6 +58,10 @@
         <a href="{{ config.extra.discussions_url }}" target="_blank" rel="noopener">Discussions</a>
         &nbsp;&middot;&nbsp;
         <a href="{{ get_url(path='blog/') }}">Blog</a>
+        {% if config.generate_feeds %}
+          &nbsp;&middot;&nbsp;
+          <a href="{{ get_url(path='atom.xml', trailing_slash=false) }}">RSS</a>
+        {% endif %}
         &nbsp;&middot;&nbsp;
         <a href="mailto:info@yoebuild.org?subject=%5Byoe%5D%20question">info@yoebuild.org</a>
         &nbsp;&middot;&nbsp;
