@@ -45,50 +45,49 @@ you'd help mitigate one —
 ## How slow is QEMU user-mode emulation? Is it usable?
 
 Yes, it's slower than native — roughly **5–20× slower** depending on the
-workload. CPU-bound C/C++ compilation pays the largest tax; I/O-heavy steps
-like unpacking sources and assembling images feel closer to native. For
-day-to-day iteration on x86_64, it's a reasonable trade for not having to
-manage a cross-toolchain.
+workload. CPU-bound C/C++ compilation pays the largest tax; I/O-heavy steps like
+unpacking sources and assembling images feel closer to native. For day-to-day
+iteration on x86_64, it's a reasonable trade for not having to manage a
+cross-toolchain.
 
 A few ways to mitigate when emulation overhead starts to bite:
 
-- **Build natively on ARM hardware.** Apple Silicon Macs, Raspberry Pi 5,
-  NVIDIA Jetson, or any ARM64 dev board build at full clock. Same `yoe` binary,
-  same config — just faster.
+- **Build natively on ARM hardware.** Apple Silicon Macs, Raspberry Pi 5, NVIDIA
+  Jetson, or any ARM64 dev board build at full clock. Same `yoe` binary, same
+  config — just faster.
 - **Use ARM cloud instances.** AWS Graviton, Hetzner CAX, Oracle Ampere, and
   arm64 GitHub Actions runners run native ARM at sensible prices. A common
   pattern: iterate on x86 with QEMU, run CI and release builds on native ARM.
-- **Let the cache do the work.** Every unit produces a content-addressed
-  `.apk`. Once any machine has built a unit, every other developer pulls from
-  the local, team, or shared cache instead of rebuilding. Most developers never
-  run QEMU for unchanged units.
+- **Let the cache do the work.** Every unit produces a content-addressed `.apk`.
+  Once any machine has built a unit, every other developer pulls from the local,
+  team, or shared cache instead of rebuilding. Most developers never run QEMU
+  for unchanged units.
 
-For a **small codebase or a handful of packages under active development**,
-QEMU emulation on its own is usually fine. For a **large codebase or full
-image builds**, combine the three above: develop on x86 with QEMU, run CI on
-native ARM, and lean on the cache so nobody rebuilds anything they don't have
-to.
+For a **small codebase or a handful of packages under active development**, QEMU
+emulation on its own is usually fine. For a **large codebase or full image
+builds**, combine the three above: develop on x86 with QEMU, run CI on native
+ARM, and lean on the cache so nobody rebuilds anything they don't have to.
 
 ## Who is the customer?
 
-A few overlapping audiences — and we're deliberately not optimizing for only
-one of them yet:
+A few overlapping audiences — and we're deliberately not optimizing for only one
+of them yet:
 
-- **Small product teams building edge devices.** Today's primary user. Teams
-  who would otherwise stand up Yocto or Buildroot but want a faster loop and
-  don't have a dedicated platform engineer to feed the build system.
-- **Application developers on embedded teams.** Engineers writing Go, Rust,
-  or Python services that run on a device, who need to integrate with the
-  base image without learning a separate SDK.
+- **Small product teams building edge devices.** Today's primary user. Teams who
+  would otherwise stand up Yocto or Buildroot but want a faster loop and don't
+  have a dedicated platform engineer to feed the build system.
+- **Application developers on embedded teams.** Engineers writing Go, Rust, or
+  Python services that run on a device, who need to integrate with the base
+  image without learning a separate SDK.
 - **System integrators and BSP authors.** Silicon vendors and consultancies
-  shipping board support, looking for a clean place to publish units
-  alongside others.
+  shipping board support, looking for a clean place to publish units alongside
+  others.
 
 We pay most attention to the first group; when `[yoe]` makes their day faster,
-the rest tends to follow. We are not targeting deep-compliance,
-frozen-SDK shops — Yocto remains the right choice there.
+the rest tends to follow. We are not targeting deep-compliance, frozen-SDK shops
+— Yocto remains the right choice there.
 
-## Is this fully open source, or is there an acquisition strategy?
+## Is this fully open source? What is the business strategy?
 
 Apache 2.0, intentionally. The aim is closer to
 [Zephyr](https://zephyrproject.org/) than to a startup exit: a vendor-neutral
@@ -96,20 +95,25 @@ project that multiple companies depend on, contribute to, and ship products
 with. Concretely:
 
 - **The team developing `[yoe]` today is
-  [BEC Systems](https://bec-systems.com/),** who uses it to accelerate their
-  own embedded product work. Sponsorship, support, and consulting around
-  `[yoe]` are part of how the work is funded.
+  [BEC Systems](https://bec-systems.com/),** who uses it to accelerate their own
+  embedded product work. Sponsorship, support, and consulting around `[yoe]` are
+  part of how the work is funded.
 - **No exit plan, no IP holdback.** The code, units, and docs are all open.
   There is no proprietary tier we're holding back to sell later.
-- **Potential collaborators** roughly: silicon vendors who want a clean way
-  to ship BSPs, OTA / update vendors (Mender, RAUC, ostree-based teams) who
-  want a build system that composes with their update story, edge-AI
-  platforms that need to integrate ML workloads cleanly, and consultancies
-  who would rather build on a shared base than maintain a private fork.
-- **Lateral technologies that might trade interestingly:** container
-  runtimes on the device, shared artifact / apk feed infrastructure,
-  AI workflows that span dev / devops / oncall, and bridges to the larger
-  distribution package ecosystems.
+- **Potential collaborators** roughly: silicon vendors who want a clean way to
+  ship BSPs, OTA / update vendors (Mender, RAUC, ostree-based teams) who want a
+  build system that composes with their update story, edge-AI platforms that
+  need to integrate ML workloads cleanly, and consultancies who would rather
+  build on a shared base than maintain a private fork.
+- **Lateral technologies that might trade interestingly:** container runtimes on
+  the device, shared artifact / apk feed infrastructure, AI workflows that span
+  dev / devops / oncall, and bridges to the larger distribution package
+  ecosystems.
+- **Hosting of build services:** once a distributed build mechanism is
+  implemented, it would be useful to have accessed to cloud build services for
+  ARM/RISC-V components that don't build easily on your local computer. This is
+  a useful commercial service that may be provided by BEC and other companies in
+  the future.
 
 If any of that resonates and you'd like to help fund or steer a piece of it,
 [come talk to us](mailto:info@yoebuild.org?subject=%5Byoe%5D%20collaboration).
@@ -118,23 +122,56 @@ If any of that resonates and you'd like to help fund or steer a piece of it,
 
 We think about this a lot. A few design choices keep the cost bounded:
 
-- **The LLM isn't in the build loop.** Routine builds are deterministic Go
-  and Starlark with no model calls. Cache hits, full rebuilds, image
-  assembly — none of those invoke a model. The AI shows up for specific
-  developer actions: creating a unit, diagnosing a failed build, asking why
-  a package is in the image, auditing for CVEs.
-- **Structured inputs, not raw logs.** Starlark units, a queryable
-  dependency graph, and structured build logs let the model work against
-  compact, semantically rich representations. "Diagnose this build failure"
-  ships the relevant unit, the failing step, and a focused window of the
-  error — not the entire log.
-- **The user supplies the model.** API keys (and, increasingly, locally
-  hosted models) come from the developer. The project doesn't need to
-  absorb model costs centrally to be useful.
+- **The LLM isn't in the build loop.** Routine builds are deterministic Go and
+  Starlark with no model calls. Cache hits, full rebuilds, image assembly — none
+  of those invoke a model. The AI shows up for specific developer actions:
+  creating a unit, diagnosing a failed build, asking why a package is in the
+  image, auditing for CVEs.
+- **Structured inputs, not raw logs.** Starlark units, a queryable dependency
+  graph, and structured build logs let the model work against compact,
+  semantically rich representations. "Diagnose this build failure" ships the
+  relevant unit, the failing step, and a focused window of the error — not the
+  entire log.
+- **The user supplies the model.** API keys (and, increasingly, locally hosted
+  models) come from the developer. The project doesn't need to absorb model
+  costs centrally to be useful.
 - **Smaller models for routine tasks.** Many workflows (CVE checks, license
   audits, "why is this package here?") run fine against a smaller, cheaper
-  model. We try to default to the cheapest model that gives a good answer
-  for each task.
+  model. We try to default to the cheapest model that gives a good answer for
+  each task.
 
 We don't claim cost is solved. As more AI workflows ship, the right defaults
 will shift, and we'll lean on open metrics to keep them honest.
+
+## How will the global cache be implemented?
+
+The cache design already has three layers: **local** (in the project tree),
+**team** (a private or shared apk feed), and **global / community** (the long
+tail of prebuilt units that anyone can pull). The local and team layers are
+straightforward and work today. The global layer is the harder part — and it's
+fundamentally an operational and funding problem, not a technical one.
+
+It's the same problem Debian, Alpine, Arch, NixOS, and the language registries
+have all had to solve: someone has to pay for storage, bandwidth, and a CDN
+that scales with adoption. The answers vary — university and ISP mirror
+networks, foundations funded by donations, donated infrastructure from cloud
+providers (Fastly for PyPI, AWS for cache.nixos.org), corporate sponsors — but
+the principle is the same: **the artifacts are free, but the hosting isn't.**
+
+For `[yoe]` we plan to start small and let demand pull the model into shape:
+
+- **Today** — projects publish their unit modules to GitHub and their `.apk`
+  packages to any HTTP-reachable feed. That's enough for individual teams and
+  early users.
+- **Next** — a community apk feed for common units (base system, popular BSPs,
+  language toolchains) so most users don't have to rebuild from source. We're
+  prototyping what this looks like.
+- **Eventually** — a sustained hosting arrangement funded by the organizations
+  that benefit most from the project. That likely means a mix of corporate
+  sponsors, mirror donations, and possibly a foundation or fiscal host. This
+  is not something one company can — or should — carry alone.
+
+If your team would depend on, or be willing to contribute to, a community apk
+cache for `[yoe]`,
+[tell us](mailto:info@yoebuild.org?subject=%5Byoe%5D%20cache) — that signal
+helps us figure out when to invest in it.
