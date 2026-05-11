@@ -4,16 +4,55 @@
 
 <section class="hero">
   <div class="container">
-    <div class="hero__eyebrow">Embedded Linux build system</div>
+    <div class="hero__eyebrow">An exploration in embedded Linux</div>
     <h1>Embedded Linux — <em class="hero-emphasis">without tears</em></h1>
     <p class="hero__lede">
-      Native builds. Modern languages first-class. AI that understands the
-      system. One tool from your laptop to production — no separate SDK, no
-      cross-compile setup, no rebuild-the-world for a small change.
+      A set of experiments in what the next-generation embedded Linux build system could look
+      like: native builds, modern languages first-class, AI that understands the
+      system, one tool from laptop to production. Pre-1.0 and rough around the
+      edges — we're sharing the work as it takes shape.
     </p>
     <div class="hero__cta">
-      <a href="#get-started" class="btn btn--primary">Get started →</a>
-      <a href="{{ config.extra.github_url }}" class="btn btn--ghost" target="_blank" rel="noopener">Star on GitHub</a>
+      <a href="#what-were-exploring" class="btn btn--primary">See what we're exploring →</a>
+      <a href="{{ config.extra.github_url }}" class="btn btn--ghost" target="_blank" rel="noopener">Follow along on GitHub</a>
+    </div>
+  </div>
+</section>
+
+<section class="section section--alt">
+  <div class="container">
+    <div class="section-head">
+      <div class="section-head__eyebrow">Goals</div>
+      <h2>What we're aiming for.</h2>
+      <p class="section-head__lede">
+        <span class="yoe-mark">[yoe]</span> next-gen is a vendor-neutral project, built in
+        the open to help small teams do big things. Three north stars guide the
+        experiment — everything else is in service of these.
+      </p>
+    </div>
+
+    <div class="cards">
+      <div class="card">
+        <div class="card__icon">01 / Productivity</div>
+        <h3>Drastically improve developer productivity</h3>
+        <p>Shrink the loop between an idea and a running image. Fewer rebuilds, fewer
+          context switches, fewer tools to learn — so engineers spend their time on the
+          product, not on the build.</p>
+      </div>
+      <div class="card">
+        <div class="card__icon">02 / Integrate</div>
+        <h3>Easily integrate complex workloads</h3>
+        <p>Modern edge devices ship Go services, Rust agents, Python ML, container
+          workloads, and kernel drivers side by side. Pulling these together should be
+          straightforward, not a custom integration project each time.</p>
+      </div>
+      <div class="card">
+        <div class="card__icon">03 / Scale</div>
+        <h3>Scale to build anything</h3>
+        <p>From tiny Zephyr images to complex AI workloads. From one application to a
+          complete distributed system — one tool, one mental model, with caching that
+          keeps up as projects grow.</p>
+      </div>
     </div>
   </div>
 </section>
@@ -67,15 +106,16 @@
   </div>
 </section>
 
-<section class="section section--alt">
+<section class="section section--alt" id="what-were-exploring">
   <div class="container">
     <div class="section-head">
-      <div class="section-head__eyebrow">The promise</div>
-      <h2>One tool. Every layer. Real speed.</h2>
+      <div class="section-head__eyebrow">What we're exploring</div>
+      <h2>One tool. Every layer. Built natively.</h2>
       <p class="section-head__lede">
-        <span class="yoe-mark">[yoe]</span> is a single Go binary that handles the entire build flow —
-        from fetching sources, to sandboxed compilation, to bootable disk images. Three
-        interfaces, same engine: AI conversation, an interactive TUI, and a traditional CLI.
+        We're prototyping <span class="yoe-mark">[yoe]</span> as a single Go binary that handles the entire
+        build flow — from fetching sources, to sandboxed compilation, to bootable disk images. Three
+        interfaces against the same engine: AI conversation, an interactive TUI, and a traditional CLI.
+        Pieces work today; pieces are still on the bench.
       </p>
     </div>
 
@@ -125,13 +165,14 @@
   <div class="container">
     <div class="demo">
       <div class="demo__copy">
-        <div class="section-head__eyebrow">Get started</div>
-        <h2>From zero to bootable image in minutes.</h2>
+        <div class="section-head__eyebrow">Try it</div>
+        <h2>Give it a try.</h2>
         <p>
           All you need is one Go binary, Docker, and Git. No global state, no hidden
           caches, no SDK to install. The first build assembles a Docker
           toolchain container, fetches default unit modules, and produces a
-          bootable QEMU image.
+          bootable QEMU image. Expect rough edges — this is an experiment, and
+          we'd love to hear what breaks.
         </p>
         <p>
           For ARM64, register QEMU user-mode once with
@@ -198,27 +239,29 @@ yoe run base-image
 
 <section class="cta-strip">
   <div class="container">
-    <h2>Ship modern edge products <span class="speed">faster</span>.</h2>
+    <h2>Build the future of embedded Linux</h2>
     <p>
-      Build for ARM, RISC-V, and x86 with the same tool. No cross-compile, no SDK
-      handoff, no rebuild-on-config-change. Pre-1.0 and moving fast — give it a
-      try and let us know how it goes.
+      We're testing whether ARM, RISC-V, and x86 can share one tool — without a
+      cross-compile dance, an SDK handoff, or a rebuild on every config change.
+      Pre-1.0, plenty unfinished. Try it on a board you care about and tell us
+      what you find.
     </p>
     <p>
-      The opportunity is here … come build the future of embedded Linux with us.
+      If any of this resonates, come think it through with us.
     </p>
     <div class="hero__cta" style="justify-content: center;">
       <a href="https://docs.yoebuild.org/#-getting-started" class="btn btn--primary" target="_blank"
         rel="noopener">Read the quickstart →</a>
-      <a href="{{ get_url(path='blog/') }}" class="btn btn--ghost">Latest from the blog</a>
+      <a href="{{ get_url(path='blog/') }}" class="btn btn--ghost">Notes from the workbench</a>
     </div>
   </div>
 </section>
 
 <section class="contact-strip">
   <div class="container">
-    <h3>Questions or feedback?</h3>
-    <p>We'd like to hear from you — about a board you're targeting or a unit you can't get to build.</p>
+    <h3>Questions, ideas, or things that broke?</h3>
+    <p>We'd like to hear from you — about a board you're targeting, a unit that
+      won't build, or an idea worth trying.</p>
     <div class="hero__cta" style="justify-content: center;">
       <a href="{{ config.extra.discussions_url }}" class="btn btn--primary" target="_blank" rel="noopener">Join the
         discussion →</a>

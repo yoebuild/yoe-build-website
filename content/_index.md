@@ -1,5 +1,5 @@
 +++
 title = "[yoe]"
-description = "An embedded Linux build system for teams shipping modern edge products. Native builds, language-native package managers, AI as a first-class interface."
+description = "An exploration of a different approach to embedded Linux builds — native builds, language-native package managers, AI as a first-class interface. A set of experiments in progress, not a finished product."
 template = "index.html"
 +++
