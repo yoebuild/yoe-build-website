@@ -24,6 +24,10 @@
   {% if config.generate_feeds %}
     <link rel="alternate" type="application/atom+xml" title="{{ config.title }} feed" href="{{ get_url(path='atom.xml', trailing_slash=false) }}">
   {% endif %}
+
+  {# Fathom — beautiful, simple website analytics #}
+  <script src="https://cdn.usefathom.com/script.js" data-site="FDRYCURB" defer></script>
+
   {% block head_extra %}{% endblock %}
 </head>
 <body>
@@ -38,6 +42,7 @@
       </button>
       <nav class="site-nav" id="site-nav">
         <a href="{{ get_url(path='blog/') }}">Blog</a>
+        <a href="{{ get_url(path='videos/') }}">Videos</a>
         <a href="{{ get_url(path='faq/') }}">FAQ</a>
         <a href="https://docs.yoebuild.org/" target="_blank" rel="noopener">Docs</a>
         <a href="mailto:info@yoebuild.org?subject=%5Byoe%5D%20question">Contact</a>
@@ -52,24 +57,44 @@
 
   <footer class="site-footer">
     <div class="container">
-      <div>
-        <span class="yoe-mark">[yoe]</span> Next Generation &middot; {{ config.extra.copyright_year }} &middot;
-        Apache 2.0
+      <div class="site-footer__subscribe">
+        <h3>Follow this experiment</h3>
+        <p>Occasional notes on progress, design choices, and what's working.
+          No spam, unsubscribe anytime.</p>
+        <form
+          action="https://app.kit.com/forms/9431238/subscriptions"
+          method="post"
+          target="_blank"
+          class="subscribe-form">
+          <input
+            type="email"
+            name="email_address"
+            placeholder="you@example.com"
+            aria-label="Email address"
+            required>
+          <button type="submit" class="btn btn--primary">Subscribe</button>
+        </form>
       </div>
-      <div>
-        <a href="{{ config.extra.github_url }}" target="_blank" rel="noopener">GitHub</a>
-        &nbsp;&middot;&nbsp;
-        <a href="{{ config.extra.discussions_url }}" target="_blank" rel="noopener">Discussions</a>
-        &nbsp;&middot;&nbsp;
-        <a href="{{ get_url(path='blog/') }}">Blog</a>
-        {% if config.generate_feeds %}
+      <div class="site-footer__bottom">
+        <div>
+          <span class="yoe-mark">[yoe]</span> Next Generation &middot; {{ config.extra.copyright_year }} &middot;
+          Apache 2.0
+        </div>
+        <div>
+          <a href="{{ config.extra.github_url }}" target="_blank" rel="noopener">GitHub</a>
           &nbsp;&middot;&nbsp;
-          <a href="{{ get_url(path='atom.xml', trailing_slash=false) }}">RSS</a>
-        {% endif %}
-        &nbsp;&middot;&nbsp;
-        <a href="mailto:info@yoebuild.org?subject=%5Byoe%5D%20question">info@yoebuild.org</a>
-        &nbsp;&middot;&nbsp;
-        <a href="{{ config.extra.yoedistro_url }}" target="_blank" rel="noopener">Yoe Distribution</a>
+          <a href="{{ config.extra.discussions_url }}" target="_blank" rel="noopener">Discussions</a>
+          &nbsp;&middot;&nbsp;
+          <a href="{{ get_url(path='blog/') }}">Blog</a>
+          {% if config.generate_feeds %}
+            &nbsp;&middot;&nbsp;
+            <a href="{{ get_url(path='atom.xml', trailing_slash=false) }}">RSS</a>
+          {% endif %}
+          &nbsp;&middot;&nbsp;
+          <a href="mailto:info@yoebuild.org?subject=%5Byoe%5D%20question">info@yoebuild.org</a>
+          &nbsp;&middot;&nbsp;
+          <a href="{{ config.extra.yoedistro_url }}" target="_blank" rel="noopener">Yoe Distribution</a>
+        </div>
       </div>
     </div>
   </footer>

@@ -151,9 +151,9 @@ will shift, and we'll lean on open metrics to keep them honest.
 
 The cache design already has three layers: **local** (in the project tree),
 **team** (a private or shared apk feed), and **global / community** (the long
-tail of prebuilt units that anyone can pull). The local and team layers are
-straightforward and work today. The global layer is the harder part — and it's
-fundamentally an operational and funding problem, not a technical one.
+tail of prebuilt units that anyone can pull). The local layer is straightforward
+and works today. The global layer is the harder part — and it's fundamentally an
+operational and funding problem, not a technical one.
 
 It's the same problem Debian, Alpine, Arch, NixOS, and the language registries
 have all had to solve: someone has to pay for storage, bandwidth, and a CDN that

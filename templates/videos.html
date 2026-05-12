@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+
+{% block title %}{{ page.title }} — {{ config.title }}{% endblock %}
+{% block description %}{{ page.description | default(value=config.description) }}{% endblock %}
+
+{% block content %}
+{% set playlist_id = "PL3XJli5z9VFd5c0xlrFZkqm_N0dOeWhPP" %}
+{% set playlist_url = "https://www.youtube.com/playlist?list=" ~ playlist_id %}
+{% set feed = load_data(url="https://www.youtube.com/feeds/videos.xml?playlist_id=" ~ playlist_id, format="xml", required=false) %}
+<article class="page videos-page">
+  <div class="container">
+    <div class="page__inner">
+      <h1>{{ page.title }}</h1>
+
+      <p>
+        A growing collection of walkthroughs, demos, and design discussions from
+        the [yoe] experiment. From
+        <a href="{{ playlist_url }}" target="_blank" rel="noopener">this YouTube playlist</a>.
+      </p>
+    </div>
+  </div>
+
+  {% if feed and feed.feed and feed.feed.entry %}
+    {% set entries = feed.feed.entry %}
+    {% if entries.0 is not defined %}{% set entries = [entries] %}{% endif %}
+
+    <div class="video-list">
+      {% for entry in entries %}
+        {% set watch_url = "https://www.youtube.com/watch?v=" ~ entry.videoId ~ "&list=" ~ playlist_id %}
+        <section class="video-item">
+          <div class="video-item__head">
+            <h2><a href="{{ watch_url }}" target="_blank" rel="noopener">{{ entry.title }}</a></h2>
+            {% if entry.published %}
+              <time datetime="{{ entry.published }}">{{ entry.published | date(format="%b %-d, %Y") }}</time>
+            {% endif %}
+          </div>
+          <div class="video-player">
+            <iframe
+              src="https://www.youtube.com/embed/{{ entry.videoId }}?list={{ playlist_id }}"
+              title="{{ entry.title }}"
+              loading="lazy"
+              frameborder="0"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              referrerpolicy="strict-origin-when-cross-origin"
+              allowfullscreen></iframe>
+          </div>
+        </section>
+      {% endfor %}
+    </div>
+  {% endif %}
+</article>
+{% endblock %}
