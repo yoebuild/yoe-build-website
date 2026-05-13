@@ -30,7 +30,16 @@ Ship it.
   footprint than full Node on the target.
 
 The unit author writes the same dependency manifest they'd write on their laptop
-— `requirements.txt`, `package.json`. The build system handles the rest.
+— `requirements.txt`, `package.json`. The build system handles the rest,
+including pulling in any development dependencies — compilers, headers, native
+build tools — that pip or npm need to compile packages with C or Rust
+extensions. Those tools live in the build environment, not on the target.
+
+Python in particular benefits from the wheel ecosystem: pip caches built wheels
+extensively, and most of PyPI is now distributed as prebuilt wheels for common
+architectures. `[yoe]` is set up to leverage those caches rather than rebuild
+from source on every run, which keeps Python builds fast even when the
+dependency graph is large.
 
 ## Why this matters
 
