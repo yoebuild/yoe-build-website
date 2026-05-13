@@ -48,6 +48,6 @@ dependency graph gets a lot more interesting. The
 [YouTube playlist](https://www.youtube.com/playlist?list=PL3XJli5z9VFd5c0xlrFZkqm_N0dOeWhPP)
 is the place to subscribe for new walkthroughs as features land.
 
-What scripting-language workflow would you like to see demoed next?
+What development workflow would you like to see demoed next?
 [Open a discussion](https://github.com/orgs/yoebuild/discussions) or send a
 [note](mailto:info@yoebuild.org?subject=%5Byoe%5D%20video%20feedback).
