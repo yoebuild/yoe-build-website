@@ -147,6 +147,36 @@ A few design choices keep the cost bounded:
 We don't claim cost is solved. As more AI workflows ship, the right defaults
 will shift, and we'll lean on open metrics to keep them honest.
 
+## What about glibc, systemd, Debian, or Ubuntu?
+
+A fair question — these are the defaults most engineers know from servers and
+desktops, and they're worth supporting on edge devices too.
+
+The current focus is the **tooling and build architecture** — the unit model,
+the TUI/CLI/AI interfaces, caching, and the iteration loop. Getting that
+foundation right matters more right now than covering every base ecosystem on
+day one. Once the core is solid, adding bases is a much smaller lift.
+
+We're starting with an **Alpine base** because it's simple and lightweight: a
+small musl rootfs, the `apk` package format, and a clean set of well-maintained
+packages to compose from. That makes the early iterations of `[yoe]` easy to
+reason about and quick to build.
+
+The architecture isn't tied to Alpine, though. A unit defines how its inputs
+turn into outputs; the base distribution is just another set of inputs. Once
+the foundation is in shape, we plan to add a **Debian / Ubuntu base** following
+the same pattern we use for Alpine — pulling packages from the upstream
+archive and composing them into images. That brings glibc, systemd, and the
+broader Debian package ecosystem within reach for products that want them.
+
+Further out, **building entirely from source** is also on the table for teams
+who need maximum control over toolchains, patches, and provenance — closer in
+spirit to a Yocto-style build, but using the same units and graph model
+`[yoe]` already provides.
+
+The short version: tooling first, then Alpine today, Debian / Ubuntu next,
+fully from source eventually. Same build system, same units, different bases.
+
 ## How will the global cache be implemented?
 
 The cache design already has three layers: **local** (in the project tree),
