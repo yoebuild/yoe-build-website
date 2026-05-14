@@ -112,7 +112,7 @@
       <div class="section-head__eyebrow">What we're exploring</div>
       <h2>One tool. Every layer. Built natively.</h2>
       <p class="section-head__lede">
-        We're prototyping <span class="yoe-mark">[yoe]</span> as a single Go binary that builds every
+        We're prototyping <span class="yoe-mark">[yoe]</span> as a single unified tool that builds every
         layer — kernel, root filesystem, and applications — natively on the target architecture, with no
         cross-compilation toolchain and no SDK handoff. One engine, three ways to drive it: a traditional
         CLI, an interactive TUI, and an AI assistant. Pieces work today; pieces are still on the bench.
@@ -124,7 +124,7 @@
         <div class="card__icon">01 / Native</div>
         <h3>No cross-compilation</h3>
         <p>Build ARM and RISC-V on a Mac, on real hardware, or in cloud CI. QEMU user-mode emulation transparently runs
-          foreign-arch containers — same binary, native pipeline, no extra toolchain setup.</p>
+          foreign-arch containers — same tool, native pipeline, no extra toolchain setup.</p>
       </div>
       <div class="card">
         <div class="card__icon">02 / Languages</div>
@@ -142,7 +142,7 @@
       <div class="card">
         <div class="card__icon">04 / No SDK</div>
         <h3>Same tool, system to app</h3>
-        <p>System engineers and application developers run the same binary against the same config. New hire clones the
+        <p>System engineers and application developers run the same tool against the same config. New hire clones the
           repo, types <code>yoe</code>, ships.</p>
       </div>
       <div class="card">
@@ -168,7 +168,7 @@
         <div class="section-head__eyebrow">Try it</div>
         <h2>Give it a try.</h2>
         <p>
-          All you need is one Go binary, Docker, and Git. No global state, no hidden
+          All you need is one self-contained tool, Docker, and Git. No global state, no hidden
           caches, no SDK to install. The first build assembles a Docker
           toolchain container, fetches default unit modules, and produces a
           bootable QEMU image. Expect rough edges — this is an experiment, and
