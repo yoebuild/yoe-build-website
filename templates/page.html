@@ -2,6 +2,8 @@
 
 {% block title %}{{ page.title }} — {{ config.title }}{% endblock %}
 {% block description %}{{ page.description | default(value=page.summary | default(value=config.description)) | striptags | truncate(length=200) }}{% endblock %}
+{% block og_title %}{{ page.title }} — {{ config.title }}{% endblock %}
+{% block og_description %}{{ page.description | default(value=page.summary | default(value=config.description)) | striptags | truncate(length=200) }}{% endblock %}
 
 {% block content %}
 <article class="page{% if page.toc %} page--with-toc{% endif %}">

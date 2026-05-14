@@ -1,7 +1,9 @@
 {% extends "base.html" %}
 
 {% block title %}{{ page.title }} — {{ config.title }}{% endblock %}
-{% block description %}{{ page.description | default(value=config.description) }}{% endblock %}
+{% block description %}{{ page.description | default(value=config.description) | striptags | truncate(length=200) }}{% endblock %}
+{% block og_title %}{{ page.title }} — {{ config.title }}{% endblock %}
+{% block og_description %}{{ page.description | default(value=config.description) | striptags | truncate(length=200) }}{% endblock %}
 
 {% block content %}
 {% set playlist_id = "PL3XJli5z9VFd5c0xlrFZkqm_N0dOeWhPP" %}
