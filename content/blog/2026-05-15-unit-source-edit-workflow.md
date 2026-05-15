@@ -38,9 +38,9 @@ pinned to `dev modified` to `dev dirty` as you switch modes and accumulate
 uncommitted changes, so the state is always visible at a glance.
 
 From there the loop is short: build the unit, deploy it with a single key to the
-target you last deployed to, and watch the change land on the running QEMU
-instance. Because `[yoe]` is built to run several sessions at once, the build
-and the running target sit side by side while you iterate.
+target you last deployed to, and watch the change land on the target instance.
+Because `[yoe]` is built to run several sessions at once, the build and the
+running target sit side by side while you iterate.
 
 ## Pinning the change back
 
