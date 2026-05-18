@@ -31,9 +31,9 @@ feels more useful than pretending otherwise.
    `[yoe]` units and BSPs from scratch is the single largest open question, and
    the path is long.
 2. **Sustainability.** Today `[yoe]` is developed and funded by
-   [BEC Systems](https://bec-systems.com/), who uses it for product
-   development. If the work doesn't attract collaborators, sponsors, or users
-   who depend on it, it could stall before it matures.
+   [BEC Systems](https://bec-systems.com/), who uses it for product development.
+   If the work doesn't attract collaborators, sponsors, or users who depend on
+   it, it could stall before it matures.
 3. **Technical bets that may not pan out.** Native-only builds, Starlark plus AI
    as a primary interface for new units, and `apk` as the package format are all
    bets that look right today but haven't been tested across a wide variety of
@@ -88,8 +88,25 @@ of them yet:
   others.
 
 We pay most attention to the first group; when `[yoe]` makes their day faster,
-the rest tends to follow. We are not targeting deep-compliance, frozen-SDK shops
-— Yocto remains the right choice there.
+the rest tends to follow. We are not targeting deep-compliance, frozen-SDK
+shops, or teams of 1000s of engineers. — Bazel or Yocto may remain the right
+choice there.
+
+The problems a startup or ten-person product team faces aren't a smaller
+version of an enterprise's — they're often different problems entirely. Tools built for
+Google scale import that operational cost without the payoff (the
+[_You Are Not Google_](https://blog.bradfieldcs.com/you-are-not-google-84912cf44afb)
+point — and why so many small teams end up running Kubernetes to deploy three
+containers). `[yoe]` is calibrated for the problems small teams and startups
+actually have.
+
+Optimizing for small teams isn't a niche bet. Small and independent businesses
+are the foundation of the global economy —
+[over 90% of all firms and roughly 70% of employment worldwide](https://www.ifc.org/en/what-we-do/msme-day)
+(IFC / World Bank Group) — and new business formation sits at historic highs in
+many markets. Connected-hardware teams ride the same curve as silicon and
+tooling keep getting cheaper. Building the best tool for that group aims at
+where the work is heading, not a corner of it.
 
 ## Is this fully open source? What is the business strategy?
 
@@ -163,19 +180,19 @@ packages to compose from. That makes the early iterations of `[yoe]` easy to
 reason about and quick to build.
 
 The architecture isn't tied to Alpine, though. A unit defines how its inputs
-turn into outputs; the base distribution is just another set of inputs. Once
-the foundation is in shape, we plan to add a **Debian / Ubuntu base** following
-the same pattern we use for Alpine — pulling packages from the upstream
-archive and composing them into images. That brings glibc, systemd, and the
-broader Debian package ecosystem within reach for products that want them.
+turn into outputs; the base distribution is just another set of inputs. Once the
+foundation is in shape, we plan to add a **Debian / Ubuntu base** following the
+same pattern we use for Alpine — pulling packages from the upstream archive and
+composing them into images. That brings glibc, systemd, and the broader Debian
+package ecosystem within reach for products that want them.
 
 Further out, **building entirely from source** is also on the table for teams
 who need maximum control over toolchains, patches, and provenance — closer in
-spirit to a Yocto-style build, but using the same units and graph model
-`[yoe]` already provides.
+spirit to a Yocto-style build, but using the same units and graph model `[yoe]`
+already provides.
 
-The short version: tooling first, then Alpine today, Debian / Ubuntu next,
-fully from source eventually. Same build system, same units, different bases.
+The short version: tooling first, then Alpine today, Debian / Ubuntu next, fully
+from source eventually. Same build system, same units, different bases.
 
 ## How will the global cache be implemented?
 
