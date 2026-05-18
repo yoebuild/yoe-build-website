@@ -30,10 +30,10 @@ feels more useful than pretending otherwise.
    decades of vendor BSPs and community momentum. Growing an ecosystem of
    `[yoe]` units and BSPs from scratch is the single largest open question, and
    the path is long.
-2. **Sustainability.** Today this is a small team supported by
-   [BEC Systems](https://bec-systems.com/). If the work doesn't attract
-   collaborators, sponsors, or users who depend on it, it could stall before it
-   matures.
+2. **Sustainability.** Today `[yoe]` is developed and funded by
+   [BEC Systems](https://bec-systems.com/), who uses it for product
+   development. If the work doesn't attract collaborators, sponsors, or users
+   who depend on it, it could stall before it matures.
 3. **Technical bets that may not pan out.** Native-only builds, Starlark plus AI
    as a primary interface for new units, and `apk` as the package format are all
    bets that look right today but haven't been tested across a wide variety of
