@@ -41,9 +41,6 @@ feels more useful than pretending otherwise.
 4. **Scope.** A TUI, a CLI, AI workflows, multiple architectures, containers,
    OTA — it is a lot to do well. Staying focused on the goals above, and saying
    no to nearby-but-different problems, will be a constant discipline.
-5. **Remote runners.** Run `[yoe]` on your local workstation, but dispatch
-   native builds to a cloud runner on a native machine - similar to the GitHub
-   Actions runner.
 
 We'd rather name these risks than ignore them. If any resonate — especially if
 you'd help mitigate one —
@@ -68,7 +65,11 @@ A few ways to mitigate when emulation overhead starts to bite:
 - **Let the cache do the work.** Every unit produces a content-addressed `.apk`.
   Once any machine has built a unit, every other developer pulls from the local,
   team, or shared cache instead of rebuilding. Most developers never run QEMU
-  for unchanged units.
+  for unchanged units. Cloud CI on native instances can be used to build and
+  cache large native packages.
+- **Remote runners.** Run `[yoe]` on your local workstation, but dispatch native
+  builds to a cloud runner on a native machine - similar to the GitHub Actions
+  runner.
 
 For a **small codebase or a handful of packages under active development**, QEMU
 emulation on its own is usually fine. For a **large codebase or full image
