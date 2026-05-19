@@ -65,7 +65,11 @@ A few ways to mitigate when emulation overhead starts to bite:
 - **Let the cache do the work.** Every unit produces a content-addressed `.apk`.
   Once any machine has built a unit, every other developer pulls from the local,
   team, or shared cache instead of rebuilding. Most developers never run QEMU
-  for unchanged units.
+  for unchanged units. Cloud CI on native instances can be used to build and
+  cache large native packages.
+- **Remote runners.** Run `[yoe]` on your local workstation, but dispatch native
+  builds to a cloud runner on a native machine - similar to the GitHub Actions
+  runner.
 
 For a **small codebase or a handful of packages under active development**, QEMU
 emulation on its own is usually fine. For a **large codebase or full image
@@ -92,8 +96,8 @@ the rest tends to follow. We are not targeting deep-compliance, frozen-SDK
 shops, or teams of 1000s of engineers. — Bazel or Yocto may remain the right
 choice there.
 
-The problems a startup or ten-person product team faces aren't a smaller
-version of an enterprise's — they're often different problems entirely. Tools built for
+The problems a startup or ten-person product team faces aren't a smaller version
+of an enterprise's — they're often different problems entirely. Tools built for
 Google scale import that operational cost without the payoff (the
 [_You Are Not Google_](https://blog.bradfieldcs.com/you-are-not-google-84912cf44afb)
 point — and why so many small teams end up running Kubernetes to deploy three
