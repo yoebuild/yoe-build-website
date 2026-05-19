@@ -41,6 +41,9 @@ feels more useful than pretending otherwise.
 4. **Scope.** A TUI, a CLI, AI workflows, multiple architectures, containers,
    OTA — it is a lot to do well. Staying focused on the goals above, and saying
    no to nearby-but-different problems, will be a constant discipline.
+5. **Remote runners.** Run `[yoe]` on your local workstation, but dispatch
+   native builds to a cloud runner on a native machine - similar to the GitHub
+   Actions runner.
 
 We'd rather name these risks than ignore them. If any resonate — especially if
 you'd help mitigate one —
@@ -92,8 +95,8 @@ the rest tends to follow. We are not targeting deep-compliance, frozen-SDK
 shops, or teams of 1000s of engineers. — Bazel or Yocto may remain the right
 choice there.
 
-The problems a startup or ten-person product team faces aren't a smaller
-version of an enterprise's — they're often different problems entirely. Tools built for
+The problems a startup or ten-person product team faces aren't a smaller version
+of an enterprise's — they're often different problems entirely. Tools built for
 Google scale import that operational cost without the payoff (the
 [_You Are Not Google_](https://blog.bradfieldcs.com/you-are-not-google-84912cf44afb)
 point — and why so many small teams end up running Kubernetes to deploy three
