@@ -150,14 +150,20 @@
       <div class="card">
         <div class="card__icon">05 / Cache</div>
         <h3>Cached at the unit level</h3>
-        <p>Every unit produces a content-addressed apk. Most developers never rebuild — they pull. Local, team, and
+        <p>Every unit produces a content-addressed package — apk or deb. Most developers never rebuild — they pull. Local, team, and
           global cache layers, no global lock.</p>
       </div>
       <div class="card">
         <div class="card__icon">06 / Sandboxed</div>
         <h3>Per-unit container, bwrap-isolated</h3>
-        <p>Each unit runs in its own Docker container with a bubblewrap sandbox. Toolchain pinning per-unit; no host
-          pollution; no leaks between builds.</p>
+        <p>Each unit runs in its own Docker container with a bubblewrap sandbox. Toolchain pinning per-unit/task; no host
+          pollution; no leaks between build units.</p>
+      </div>
+      <div class="card">
+        <div class="card__icon">07 / Distros</div>
+        <h3>Alpine, Debian, or Ubuntu — per image</h3>
+        <p>Pick the base the workload needs, image by image. Alpine keeps things small and musl-clean; Debian and Ubuntu
+          bring glibc, systemd, and a far larger catalog. One project builds all three side by side.</p>
       </div>
     </div>
   </div>

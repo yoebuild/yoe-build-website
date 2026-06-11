@@ -35,9 +35,10 @@ feels more useful than pretending otherwise.
    If the work doesn't attract collaborators, sponsors, or users who depend on
    it, it could stall before it matures.
 3. **Technical bets that may not pan out.** Native-only builds, Starlark plus AI
-   as a primary interface for new units, and `apk` as the package format are all
-   bets that look right today but haven't been tested across a wide variety of
-   products at scale. Any of them could need a rethink.
+   as a primary interface for new units, and reusing existing distro package
+   formats (`apk`, and now `deb`) rather than inventing one are all bets that
+   look right today but haven't been tested across a wide variety of products at
+   scale. Any of them could need a rethink.
 4. **Scope.** A TUI, a CLI, AI workflows, multiple architectures, containers,
    OTA — it is a lot to do well. Staying focused on the goals above, and saying
    no to nearby-but-different problems, will be a constant discipline.
@@ -62,11 +63,12 @@ A few ways to mitigate when emulation overhead starts to bite:
 - **Use ARM cloud instances.** AWS Graviton, Hetzner CAX, Oracle Ampere, and
   arm64 GitHub Actions runners run native ARM at sensible prices. A common
   pattern: iterate on x86 with QEMU, run CI and release builds on native ARM.
-- **Let the cache do the work.** Every unit produces a content-addressed `.apk`.
-  Once any machine has built a unit, every other developer pulls from the local,
-  team, or shared cache instead of rebuilding. Most developers never run QEMU
-  for unchanged units. Cloud CI on native instances can be used to build and
-  cache large native packages.
+- **Let the cache do the work.** Every unit produces a content-addressed package
+  (`.apk` on Alpine, `.deb` on Debian and Ubuntu). Once any machine has built a
+  unit, every other developer pulls from the local, team, or shared cache
+  instead of rebuilding. Most developers never run QEMU for unchanged units.
+  Cloud CI on native instances can be used to build and cache large native
+  packages.
 - **Remote runners.** Run `[yoe]` on your local workstation, but dispatch native
   builds to a cloud runner on a native machine - similar to the GitHub Actions
   runner.
@@ -76,14 +78,13 @@ emulation on its own is usually fine. For a **large codebase or full image
 builds**, combine the three above: develop on x86 with QEMU, run CI on native
 ARM, and lean on the cache so nobody rebuilds anything they don't have to.
 
-## Who is the customer?
+## Who can benefit from Yoe?
 
-A few overlapping audiences — and we're deliberately not optimizing for only one
-of them yet:
+A few overlapping audiences:
 
-- **Small product teams building edge devices.** Today's primary user. Teams who
-  would otherwise stand up Yocto or Buildroot but want a faster loop and don't
-  have a dedicated platform engineer to feed the build system.
+- **Small product teams building edge devices.** Today's primary user. Small
+  teams who would otherwise stand up Yocto or Buildroot but want a faster loop
+  and don't have a dedicated platform engineer to feed the build system.
 - **Application developers on embedded teams.** Engineers writing Go, Rust, or
   Python services that run on a device, who need to integrate with the base
   image without learning a separate SDK.
@@ -131,11 +132,11 @@ with. Concretely:
   need to integrate ML workloads cleanly, and consultancies who would rather
   build on a shared base than maintain a private fork.
 - **Lateral technologies that might trade interestingly:** container runtimes on
-  the device, shared artifact / apk feed infrastructure, AI workflows that span
-  dev / devops / oncall, and bridges to the larger distribution package
+  the device, shared artifact / package feed infrastructure, AI workflows that
+  span dev / devops / oncall, and bridges to the larger distribution package
   ecosystems.
 - **Hosting of build services:** once a distributed build mechanism is
-  implemented, it would be useful to have accessed to cloud build services for
+  implemented, it would be useful to have access to cloud build services for
   ARM/RISC-V components that don't build easily on your local computer. This is
   a useful commercial service that may be provided by BEC and other companies in
   the future.
@@ -162,8 +163,7 @@ A few design choices keep the cost bounded:
   costs centrally to be useful.
 - **Smaller models for routine tasks.** Many workflows (CVE checks, license
   audits, "why is this package here?") run fine against a smaller, cheaper
-  model. We try to default to the cheapest model that gives a good answer for
-  each task.
+  model.
 
 We don't claim cost is solved. As more AI workflows ship, the right defaults
 will shift, and we'll lean on open metrics to keep them honest.
@@ -171,40 +171,42 @@ will shift, and we'll lean on open metrics to keep them honest.
 ## What about glibc, systemd, Debian, or Ubuntu?
 
 A fair question — these are the defaults most engineers know from servers and
-desktops, and they're worth supporting on edge devices too.
+desktops, and they're worth supporting on edge devices too. The short version:
+Alpine is the default, and Debian and Ubuntu now build too.
 
-The current focus is the **tooling and build architecture** — the unit model,
-the TUI/CLI/AI interfaces, caching, and the iteration loop. Getting that
-foundation right matters more right now than covering every base ecosystem on
-day one. Once the core is solid, adding bases is a much smaller lift.
-
-We're starting with an **Alpine base** because it's simple and lightweight: a
+`[yoe]` started with an **Alpine base** because it's simple and lightweight: a
 small musl rootfs, the `apk` package format, and a clean set of well-maintained
-packages to compose from. That makes the early iterations of `[yoe]` easy to
-reason about and quick to build.
+packages to compose from. That made the early iterations easy to reason about
+and quick to build, and Alpine remains the default for new projects.
 
-The architecture isn't tied to Alpine, though. A unit defines how its inputs
-turn into outputs; the base distribution is just another set of inputs. Once the
-foundation is in shape, we plan to add a **Debian / Ubuntu base** following the
-same pattern we use for Alpine — pulling packages from the upstream archive and
-composing them into images. That brings glibc, systemd, and the broader Debian
-package ecosystem within reach for products that want them.
+The architecture was never tied to Alpine, though — a unit defines how its
+inputs turn into outputs, and the base distribution is just another set of
+inputs. That bet has now paid off: `[yoe]` has an **apt-family backend**, and a
+single project can build Alpine, Debian, and Ubuntu images side by side,
+choosing the base per image. Debian brings glibc, systemd, and a far larger
+package catalog; Ubuntu rides the same machinery on top of it. Both are
+experimental but real — the images boot and accept an SSH login. The
+[Debian writeup](/blog/adding-debian/) and the
+[Ubuntu writeup](/blog/adding-ubuntu/) cover where each one stands, including
+the size tradeoff: the broader ecosystem costs disk and build time, so you reach
+for it per image, only where a workload needs it.
 
 Further out, **building entirely from source** is also on the table for teams
 who need maximum control over toolchains, patches, and provenance — closer in
 spirit to a Yocto-style build, but using the same units and graph model `[yoe]`
 already provides.
 
-The short version: tooling first, then Alpine today, Debian / Ubuntu next, fully
-from source eventually. Same build system, same units, different bases.
+The short version: Alpine by default, Debian and Ubuntu now building, fully from
+source eventually. Same build system, same units, different bases — chosen image
+by image.
 
 ## How will the global cache be implemented?
 
 The cache design already has three layers: **local** (in the project tree),
-**team** (a private or shared apk feed), and **global / community** (the long
-tail of prebuilt units that anyone can pull). The local layer is straightforward
-and works today. The global layer is the harder part — and it's fundamentally an
-operational and funding problem, not a technical one.
+**team** (a private or shared package feed), and **global / community** (the
+long tail of prebuilt units that anyone can pull). The local layer is
+straightforward and works today. The global layer is the harder part — and it's
+fundamentally an operational and funding problem, not a technical one.
 
 It's the same problem Debian, Alpine, Arch, NixOS, and the language registries
 have all had to solve: someone has to pay for storage, bandwidth, and a CDN that
@@ -215,17 +217,18 @@ principle is the same: **the artifacts are free, but the hosting isn't.**
 
 For `[yoe]` we plan to start small and let demand pull the model into shape:
 
-- **Today** — projects publish their unit modules to GitHub and their `.apk`
+- **Today** — projects publish their unit modules to GitHub and their built
   packages to any HTTP-reachable feed. That's enough for individual teams and
   early users.
-- **Next** — a community apk feed for common units (base system, popular BSPs,
-  language toolchains) so most users don't have to rebuild from source. We're
-  prototyping what this looks like.
+- **Next** — a community package feed for common units (base system, popular
+  BSPs, language toolchains) so most users don't have to rebuild from source.
+  We're prototyping what this looks like.
 - **Eventually** — a sustained hosting arrangement funded by the organizations
   that benefit most from the project. That likely means a mix of corporate
   sponsors, mirror donations, and possibly a foundation or fiscal host. This is
   not something one company can — or should — carry alone.
 
-If your team would depend on, or be willing to contribute to, a community apk
-cache for `[yoe]`, [tell us](mailto:info@yoebuild.org?subject=%5Byoe%5D%20cache)
-— that signal helps us figure out when to invest in it.
+If your team would depend on, or be willing to contribute to, a community
+package cache for `[yoe]`,
+[tell us](mailto:info@yoebuild.org?subject=%5Byoe%5D%20cache) — that signal
+helps us figure out when to invest in it.
