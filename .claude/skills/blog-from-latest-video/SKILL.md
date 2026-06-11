@@ -40,7 +40,13 @@ transcription. The transcript anchors the facts; the post supplies the framing.
    tagged ones) to absorb the current voice before drafting.
 
 5. **Draft the post** following the structure and rules below. Apply the
-   `refactoring-english` skill for the prose.
+   `refactoring-english` skill for the prose. **Draft tight from the start** —
+   write the lean version, not a verbose first pass you trim later. Cut stock
+   filler ("earns its keep," "evidence in hand," "right where you're already
+   working"), prefer active verbs over helper-verb constructions ("an agent
+   keeps," not "an agent can keep"), and don't add an explanatory thesis section
+   if the opening paragraph already makes the point — three substantive `##`
+   sections beat four padded ones.
 
 6. **Verify links are absolute** (see Quick Reference grep) and that the file
    builds: `zola check` (or `zola build`) if available.
@@ -67,7 +73,9 @@ Then the more interesting angle.
 
 Explain the substance — why it matters, how it works — in the author's voice.
 Pull facts from the transcript; do not transcribe it. Render the project name as
-inline code: `[yoe]`. Use em dashes and tight, technical prose.
+inline code: `[yoe]`. Render keyboard keys, commands, filenames, and unit names
+as inline code too, and keep keys lowercase (`` `d` ``, not **D**). Use em dashes
+and tight, technical prose.
 
 ## Why this matters  (or "What's next")
 
@@ -139,4 +147,8 @@ grep -nE '\]\(/' content/blog/YYYY-MM-DD-slug.md
 - **Wrong/missing tags.** Always include `videos`; add exactly one topic tag.
 - **Marketing voice.** Keep the CLAUDE.md tone: respectful, hopeful, inviting,
   technical — not hype.
+- **Verbose first draft.** The lean version is the draft, not the goal you edit
+  toward. Flowery framing and helper verbs get cut in review anyway — skip them.
+- **Bare keyboard keys.** Keys go in inline code, lowercase: `` `d` ``, not `D`
+  or **D**.
 ```
