@@ -1,6 +1,6 @@
 +++
 title = "AI in the Build Loop [yoe]"
-description = "[yoe] installs Claude Code skills into your project. When a unit fails to build, press D and the agent reads the build log and fixes it."
+description = "[yoe] installs Claude Code skills into your project. When a unit fails to build, press `d` and the agent reads the build log and fixes it."
 date = 2026-06-11
 [taxonomies]
 tags = ["videos", "productivity"]
