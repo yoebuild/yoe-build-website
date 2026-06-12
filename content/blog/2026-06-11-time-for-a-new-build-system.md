@@ -101,7 +101,7 @@ you're building and the team you have.
 
 ## Small teams have different problems, not smaller ones
 
-I've been talking to a lot of people building products, and I keep hearing a
+I've been talking to a lot of people building products, and keep hearing a
 consistent message. First, the ground has shifted: both the products and the way
 we have to put them together. Second, what works for a big team doesn't always
 work for a small one.
@@ -147,12 +147,10 @@ Python and take the language but force it into the old build process, it's a bit
 like running a train on a paved road. The win comes from adopting how those
 ecosystems build, package, and cache, not just what they produce.
 
-We now have an opportunity to re-think embedded Linux build systems. For me,
-this got personal. I've been building these systems for a long time, and
-recently I hit a realization: if I'm going to keep doing this for another 20
-years, I want something different, something that better fits the problems my
+We now have an opportunity to rethink embedded Linux build systems. For me, this
+got personal. It hit me recently — if I'm going to keep doing this for another
+20 years, I want something different, something that better fits the problems my
 customers and I are actually trying to solve, instead of fighting the tools.
-That's what started this.
 
 So I've been experimenting. Over the past couple of months I've been building
 real pieces of this in the open, and the early results have been encouraging:
@@ -163,7 +161,7 @@ approach is worth pursuing.
 
 ## What if ...
 
-What would that build system actually look like?
+... we could:
 
 - **Get to market faster.** Shorten the path from idea to a working product.
   - Takes an idea to running on target hardware in seconds to minutes, not days
@@ -189,6 +187,9 @@ What would that build system actually look like?
   - Scales from system to application to CI with consistent tooling throughout.
   - Deploys updates to fielded devices easily.
 
+(These problems seem universal, but they hit small teams disproportionately
+hard, since those teams rarely have dedicated resources to solve them.)
+
 This is what I am experimenting with in this
 [next-generation Embedded Linux build system](https://yoebuild.org/). A few
 examples of how this tool makes development easier:
@@ -199,11 +200,14 @@ examples of how this tool makes development easier:
   distributions that get us going quickly without rebuilding the world.
 - Integrate
   [Python and JavaScript](https://yoebuild.org/blog/pip-and-npm-on-the-target/)
-  native ecosystems instead of fighting them.
+  native package ecosystems instead of fighting them.
 - First-class [AI support](https://yoebuild.org/blog/ai-integration/).
 - The [terminal user interface (TUI)](https://yoebuild.org/blog/why-a-tui/) is
   fast, and allows us to easily monitor what is going on and drill down into
   detailed information as needed.
+
+A few key features are still missing, such as distributed caching and remote
+build runners, but these are coming soon.
 
 ## The old models still have their place
 
@@ -229,10 +233,10 @@ that could look like. It's pre-1.0 and developed in the open, rough edges and
 all. It's a bet that this is a problem worth solving, and an invitation to work
 out the shape of the solution together.
 
-It depends on you: the small teams building products and the vendors that
-support them. Provide feedback. What am I missing? Test it out and let me know
-how it works. [Sign up](https://yoebuild.org/) for my newsletter. Tell your
-vendors you need something like this. Like/watch the
+It depends on you: the teams building products and the vendors that support
+them. Provide feedback. What am I missing? Test it out and let me know how it
+works. [Sign up](https://yoebuild.org/) for my newsletter. Tell your vendors you
+need something like this. Like/watch the
 [GitHub repo](https://github.com/yoebuild/yoe). Share it with someone who might
 be interested. Contribute improvements. Fund development or infrastructure. Many
 small teams need this, and these small companies form a significant portion of
