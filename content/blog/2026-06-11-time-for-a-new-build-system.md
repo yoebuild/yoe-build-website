@@ -6,26 +6,29 @@ date = 2026-06-11
 tags = ["strategy", "vision"]
 +++
 
-Small teams building connected products want to do bigger things. We have more
-and more components (both hardware and software) available. We have AI tools. We
-have powerful processors with loads of memory. Yet we struggle with the
-complexity of stitching it all together, miss our shipping dates, and strain to
-maintain these systems once they're in the field. This article explores what has
-changed, and how we can build and maintain embedded Linux systems more
-efficiently.
+I've been building products using embedded Linux for the past 20 years. The
+first time I tried OpenEmbedded (the precursor to Yocto), it felt like a gift to
+be able to run a single command and build a bootable ARM image from my x86
+workstation. But things are changing. We have more and more components (both
+hardware and software) available. We have AI tools. We have powerful processors
+with loads of memory. Small teams (startups and industrial companies building
+small/medium volume connected products) want to do bigger things, yet they
+struggle with the complexity of stitching it all together, miss their shipping
+dates, and strain to maintain these systems once they're in the field. This
+article explores what has changed, and how we can build and maintain embedded
+Linux systems more efficiently.
 
 ## The Embedded Systems Golden Age
 
 We live in a remarkable time for embedded systems engineering. We have:
 
-- A large number of Linux system-on-modules (SOMs) — perfect hardware building
+- A large number of Linux system-on-modules (SOMs), perfect hardware building
   blocks for industrial products.
 - Zephyr, an excellent OS for building software on MCU platforms.
-- Falling component costs.
 - Mature tools (compilers, build systems, etc.).
 - A vast array of open source software we can apply to these systems.
 - Fast, reasonably priced prototyping (PCB assembly, mechanical 3D printing,
-  etc).
+  etc.).
 - More vendors upstreaming their Linux kernel support.
 - Yocto's solid tooling for building images and custom parts of the system.
 
@@ -45,31 +48,33 @@ vendors, and some teams ship successfully on Debian, Ubuntu, or even Arch (as
 Valve does with the Steam Deck).
 
 The shape of mainstream embedded Linux development has held remarkably steady
-for ~20 years: cross-compile on a powerful x86 workstation, assemble a BSP,
-freeze an SDK, ship the image, and hold that line for years. It's a model built
-for a static, single-purpose, rarely-updated product — and, until recently, for
-that product it has worked well.
+for ~20 years: cross-compile on a powerful x86 workstation, assemble a BSP
+(board support package), freeze an SDK (software development kit), ship the
+image, and hold that line for years. It's a model built for a static,
+single-purpose, rarely updated product, and until recently, for that product, it
+worked well.
 
 ## But things are changing ...
 
-The biggest change isn't in the build tools — it's in the products themselves.
-Edge devices have started behaving like cloud systems. They run containers, pull
-OTA updates, stream telemetry, and are managed remotely over their entire life.
+The products have changed more than the tools that build them. Edge devices have
+started behaving like cloud systems. They run containers, pull OTA (over the
+air) updates, stream telemetry, and are managed remotely over their entire life.
 A device is no longer a static artifact you flash once and forget; it's a system
 that keeps moving forward after it ships. That inverts the old release cadence:
 instead of freezing an SDK and holding it for years, teams track upstream
-continuously and push updates as a matter of course. The long LTS freeze that
-the cross-compile model was built around no longer fits a new class of products.
+continuously and push updates as a matter of course. The long LTS (long-term
+support) freeze that the cross-compile model was built around no longer fits a
+new class of products.
 
 At the same time, the software itself has outgrown the cross-compile model.
-Modern languages each ship their own package ecosystem — Python (wrapping
+Modern languages each ship their own package ecosystem: Python (wrapping
 C/C++/CUDA via NumPy and PyTorch), JavaScript (linking to C libraries), Go,
-Rust, and vcpkg (for C/C++) — and most of it is written for desktop/server, not
+Rust, and vcpkg (for C/C++). Most of it is written for desktop/server, not
 cross-compilation. That puts the cross-compile burden squarely on embedded
 developers, and maintaining recipes for thousands of packages has been a steady
 drain on the Yocto community. Yocto compounds this by blocking network access
 during the build, so language package tooling doesn't work without complex
-`do_fetch` integration — useful when you must control every source, but
+`do_fetch` integration. That's useful when you must control every source, but
 unnecessary friction for many projects.
 
 Each of these solutions trades one problem for another. Building everything from
@@ -78,27 +83,28 @@ A stock binary distro like Debian starts development faster but lacks the
 tooling to integrate the custom parts. And vendor BSPs frozen on a 4-year-old
 Yocto make it hard to integrate modern software at all.
 
-We could go on, but the point isn't a lack of talent or effort — the problem is
-inherently difficult, and the software keeps getting harder to build.
+We could go on, but the cause is structural. Talented teams working hard still
+hit this, because the problem is inherently difficult and the software keeps
+getting harder to build.
 
 To summarize, three things have changed:
 
-1. **Products never stop moving.** Edge devices now behave like cloud systems —
+1. **Products never stop moving.** Edge devices now behave like cloud systems:
    continuous OTA updates, not a multi-year freeze.
 2. **Software outgrew cross-compilation.** Every modern language brings its own
    package ecosystem that doesn't always cross-compile cleanly.
 3. **The old tradeoffs got sharper.** Build-from-source is slow and heavy; stock
    distros lack custom tooling; BSPs freeze you in time.
 
-The real question isn't whether the old model is good — it is. It's whether it
-still fits the product you're building and the team you have.
+The old model is good. The real question is whether it still fits the product
+you're building and the team you have.
 
-## Small teams have different problems — not smaller ones
+## Small teams have different problems, not smaller ones
 
 I've been talking to a lot of people building products, and I keep hearing a
-consistent message. First, the ground has shifted — both the products and the
-way we have to put them together. Second, what works for a big team doesn't
-always work for a small one.
+consistent message. First, the ground has shifted: both the products and the way
+we have to put them together. Second, what works for a big team doesn't always
+work for a small one.
 
 Small teams and startups need to build and ship. They often don't have the
 resources to sustain multi-year development cycles. They don't have dedicated
@@ -108,12 +114,11 @@ matter more than binary-reproducible builds or building everything from scratch.
 Easily deploying the latest open-source releases is frequently required to
 leverage new technologies.
 
-These teams are often hampered by three things: vendor BSPs (board support
-packages) that lock them into old versions of Yocto, frustrating debug cycles
-where a critical component won't build, and the heavy effort of back-porting
-needed components into a system frozen in time. A large organization can hire
-dedicated experts and throw resources at these problems. A small organization
-does not have this luxury.
+These teams are often hampered by three things: vendor BSPs that lock them into
+old versions of Yocto, frustrating debug cycles where a critical component won't
+build, and the heavy effort of back-porting needed components into a system
+frozen in time. A large organization can hire dedicated experts and throw
+resources at these problems. A small organization does not have this luxury.
 
 To be clear, small != hobbyist. These are often startups or industrial products
 produced at moderate scale (100's to 1000's of units) that sit between the
@@ -121,9 +126,9 @@ one-off maker projects and consumer scale mass production.
 
 ## The new opportunity
 
-Buildroot and OpenEmbedded were created in an era when ARM based computers were
+Buildroot and OpenEmbedded were created in an era when ARM-based computers were
 slow, and cross-compiling software on powerful x86 workstations was the only
-practical option. When we were building a limited set of C/C++ based
+practical option. When we were building a limited set of C/C++-based
 applications, these systems worked great. However, several things have changed
 in recent times:
 
@@ -138,14 +143,14 @@ in recent times:
 We need to leverage these change agents and rethink the world of connected
 products. The key shift is this: stop borrowing only the _technology_ of modern
 ecosystems, and start borrowing their _process_ too. When we adopt Rust or
-Python and take the language but force it into the old build process — this is a
-bit like running a train on a paved road. The win comes from adopting how those
+Python and take the language but force it into the old build process, it's a bit
+like running a train on a paved road. The win comes from adopting how those
 ecosystems build, package, and cache, not just what they produce.
 
 We now have an opportunity to re-think embedded Linux build systems. For me,
 this got personal. I've been building these systems for a long time, and
 recently I hit a realization: if I'm going to keep doing this for another 20
-years, I want something different — something that better fits the problems my
+years, I want something different, something that better fits the problems my
 customers and I are actually trying to solve, instead of fighting the tools.
 That's what started this.
 
@@ -158,21 +163,20 @@ approach is worth pursuing.
 
 ## What if ...
 
-What would that build system actually look like? Concretely, one that delivers
-on three things a business cares about:
+What would that build system actually look like?
 
 - **Get to market faster.** Shorten the path from idea to a working product.
   - Takes an idea to running on target hardware in seconds to minutes, not days
     or weeks.
   - Doesn't require cross-compilation.
   - Leverages modern language ecosystems (Python, JavaScript, Rust, Go, Zig,
-    pkgbuild, etc).
+    pkgbuild, etc.).
   - Caches builds so no piece of software is built twice.
   - Provides the convenience of pre-built packages from mainstream distributions
     with the tooling benefits of Yocto.
-- **Do more with a small team.** One toolset the whole team — and AI — can use,
-  so you don't need dedicated build specialists.
-  - Provides one build system for applications and system software — the same
+- **Do more with a small team.** One toolset the whole team (and AI) can use, so
+  you don't need dedicated build specialists.
+  - Provides one build system for applications and system software: the same
     tooling on laptop, cloud CI, and build farms.
   - Is easy for humans and AI to understand.
   - Includes tooling that works well with AI agents.
@@ -186,39 +190,49 @@ on three things a business cares about:
   - Deploys updates to fielded devices easily.
 
 This is what I am experimenting with in this
-[next-generation Embedded Linux build system](https://yoebuild.org/). Please
-check it out! I think there is an opportunity to build something new that meets
-the needs of a growing segment of small teams implementing embedded systems.
+[next-generation Embedded Linux build system](https://yoebuild.org/). A few
+examples of how this tool makes development easier:
+
+- [Alpine](https://yoebuild.org/blog/first-walkthrough-videos/),
+  [Debian](https://yoebuild.org/blog/adding-debian/), and
+  [Ubuntu](https://yoebuild.org/blog/adding-ubuntu/) are all supported base
+  distributions that get us going quickly without rebuilding the world.
+- Integrate
+  [Python and JavaScript](https://yoebuild.org/blog/pip-and-npm-on-the-target/)
+  native ecosystems instead of fighting them.
+- First-class [AI support](https://yoebuild.org/blog/ai-integration/).
+- The [terminal user interface (TUI)](https://yoebuild.org/blog/why-a-tui/) is
+  fast, and allows us to easily monitor what is going on and drill down into
+  detailed information as needed.
 
 ## The old models still have their place
 
 None of this means the old models are going away, or should. For deeply embedded
-regulated products — the ones that are compliance-certified, bit-reproducible,
-built entirely from source, and intentionally frozen for years — Yocto is
-battle-tested and remains the right tool. It does exactly what those products
-need, and it does it well.
+regulated products (compliance-certified, bit-reproducible, built entirely from
+source, and intentionally frozen for years), Yocto is battle-tested and remains
+the right tool. It does exactly what those products need, and it does it well.
 
 We've seen this pattern before. Alpine Linux didn't replace Debian. It answered
-a different need — minimal, container-friendly images — and both distributions
-still ship today, serving different points in the design space. Nobody frames it
-as a competition; they're simply shaped for different jobs.
+a different need: minimal, container-friendly images. Both distributions still
+ship today, serving different points in the design space. Nobody frames it as a
+competition; they're simply shaped for different jobs.
 
-The same is true here. Dynamic, connected, frequently-updated devices built with
+The same is true here. Dynamic, connected, frequently updated devices built with
 modern languages are a different job, and they deserve a tool built for that
 job.
 
-## So — is it time?
+## So, is it time?
 
 For a real and growing class of teams and products, I think the answer is yes.
-[`[yoe]` build](https://yoebuild.org/) is an early experiment exploring what that
-could look like. It's pre-1.0 and developed in the open, rough edges and all.
-It's a bet that this is a problem worth solving, and an invitation to work out
-the shape of the solution together.
+[`[yoe]` build](https://yoebuild.org/) is an early experiment exploring what
+that could look like. It's pre-1.0 and developed in the open, rough edges and
+all. It's a bet that this is a problem worth solving, and an invitation to work
+out the shape of the solution together.
 
-It depends on you — the small teams building products and the vendors that
-support them. Provide feedback — what are we missing? Test it out and let us
-know how it works. [Sign up](https://yoebuild.org/) for our newsletter. Tell
-your vendors you need something like this. Like/watch the
+It depends on you: the small teams building products and the vendors that
+support them. Provide feedback. What am I missing? Test it out and let me know
+how it works. [Sign up](https://yoebuild.org/) for my newsletter. Tell your
+vendors you need something like this. Like/watch the
 [GitHub repo](https://github.com/yoebuild/yoe). Share it with someone who might
 be interested. Contribute improvements. Fund development or infrastructure. Many
 small teams need this, and these small companies form a significant portion of
