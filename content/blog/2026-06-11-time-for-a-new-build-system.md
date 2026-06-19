@@ -47,54 +47,43 @@ OpenEmbedded/Yocto (2003) are now the standard, supported by most SOC/SOM
 vendors, and some teams ship successfully on Debian, Ubuntu, or even Arch (as
 Valve does with the Steam Deck).
 
-The shape of mainstream embedded Linux development has held remarkably steady
-for ~20 years: cross-compile on a powerful x86 workstation, assemble a BSP
-(board support package), freeze an SDK (software development kit), ship the
-image, and hold that line for years. It's a model built for a static,
-single-purpose, rarely updated product, and until recently, for that product, it
-worked well.
-
 ## But things are changing ...
 
-The products have changed more than the tools that build them. Edge devices have
-started behaving like cloud systems. They run containers, pull OTA (over the
-air) updates, stream telemetry, and are managed remotely over their entire life.
-A device is no longer a static artifact you flash once and forget; it's a system
-that keeps moving forward after it ships. That inverts the old release cadence:
-instead of freezing an SDK and holding it for years, teams track upstream
-continuously and push updates as a matter of course. The long LTS (long-term
-support) freeze that the cross-compile model was built around no longer fits a
-new class of products.
+Edge devices have started behaving like cloud systems. They run increasingly
+complex stacks, are frequently updated, and are managed remotely over their
+entire life. The long LTS (long-term support) freeze and the cross-compile model
+no longer fit a new class of products.
 
-At the same time, the software itself has outgrown the cross-compile model.
-Modern languages each ship their own package ecosystem: Python (wrapping
-C/C++/CUDA via NumPy and PyTorch), JavaScript (linking to C libraries), Go,
-Rust, and vcpkg (for C/C++). Most of it is written for desktop/server, not
-cross-compilation. That puts the cross-compile burden squarely on embedded
-developers, and maintaining recipes for thousands of packages has been a steady
-drain on the Yocto community. Yocto compounds this by blocking network access
-during the build, so language package tooling doesn't work without complex
-`do_fetch` integration. That's useful when you must control every source, but
-unnecessary friction for many projects.
+Some software has outgrown the cross-compile model. Modern languages each ship
+their own package ecosystem: Python (wrapping C/C++/CUDA via NumPy and PyTorch),
+JavaScript (linking to C libraries), and vcpkg (for C/C++). Most of it is
+written for desktop/server, not cross-compilation. That puts the cross-compile
+burden squarely on embedded developers, and maintaining recipes for thousands of
+packages has been a steady drain on the Yocto community. Yocto compounds this by
+blocking network access during the build, so language package tooling doesn't
+work without complex `do_fetch` integration. That's useful when you must control
+every source, but unnecessary friction for many projects.
 
-Each of these solutions trades one problem for another. Building everything from
-source in Yocto means long builds, heavy memory use, and powerful workstations.
-A stock binary distro like Debian starts development faster but lacks the
-tooling to integrate the custom parts. And vendor BSPs frozen on a 4-year-old
-Yocto make it hard to integrate modern software at all.
+Building everything from source in Yocto means long builds, heavy memory use,
+and powerful workstations. A stock binary distro like Debian starts development
+faster but lacks the tooling to integrate the custom parts. And vendor BSPs
+frozen on a 4-year-old Yocto make it hard to integrate modern software at all.
 
-We could go on, but the cause is structural. Talented teams working hard still
-hit this, because the problem is inherently difficult and the software keeps
-getting harder to build.
+We could go on, but embedded Linux is still hard. Talented teams working hard
+still hit substantial obstacles, because the problem is inherently difficult and
+the software keeps getting harder to build.
 
 To summarize, three things have changed:
 
-1. **Products never stop moving.** Edge devices now behave like cloud systems:
-   continuous OTA updates, not a multi-year freeze.
-2. **Software outgrew cross-compilation.** Every modern language brings its own
-   package ecosystem that doesn't always cross-compile cleanly.
-3. **The old tradeoffs got sharper.** Build-from-source is slow and heavy; stock
-   distros lack custom tooling; BSPs freeze you in time.
+1. **Products never stop moving.** Some edge devices now behave like cloud
+   systems: continuous updates, not a multi-year freeze.
+2. **Cross-compilation is getting more difficult in some areas.** Especially
+   with Python and Node.js, where much of the underlying software is written in
+   C/C++ with fragile build systems. Granted, cross-compilation in languages like
+   Go and Zig is getting easier.
+3. **The old tradeoffs still exist and are getting more pronounced.**
+   Build-from-source (Yocto) is slow and heavy; stock distros (Debian) lack
+   custom tooling.
 
 The old model is good. The real question is whether it still fits the product
 you're building and the team you have.
@@ -102,9 +91,8 @@ you're building and the team you have.
 ## Small teams have different problems, not smaller ones
 
 I've been talking to a lot of people building products, and keep hearing a
-consistent message. First, the ground has shifted: both the products and the way
-we have to put them together. Second, what works for a big team doesn't always
-work for a small one.
+consistent message. First, this is still very difficult. Second, what works for
+a big team doesn't always work for a small one.
 
 Small teams and startups need to build and ship. They often don't have the
 resources to sustain multi-year development cycles. They don't have dedicated
@@ -116,9 +104,9 @@ leverage new technologies.
 
 These teams are often hampered by three things: vendor BSPs that lock them into
 old versions of Yocto, frustrating debug cycles where a critical component won't
-build, and the heavy effort of back-porting needed components into a system
-frozen in time. A large organization can hire dedicated experts and throw
-resources at these problems. A small organization does not have this luxury.
+build, and the heavy effort of back-porting needed components. A large
+organization can hire dedicated experts and throw resources at these problems. A
+small organization does not have this luxury.
 
 To be clear, small != hobbyist. These are often startups or industrial products
 produced at moderate scale (100's to 1000's of units) that sit between the
@@ -134,14 +122,14 @@ in recent times:
 
 1. Application development is moving to modern languages (Python, JS, Go, Rust,
    Zig). These languages have their own package ecosystems, caching, etc.
-2. The hardware story has flipped. We now have fast ARM computers (AWS Graviton,
-   Hetzner CAX) available for building and are no longer constrained to x86
-   workstations.
+2. The build-system hardware story has changed. We now have fast ARM computers
+   (AWS Graviton, Hetzner CAX) available for building and are no longer
+   constrained to x86 workstations.
 3. AI has emerged as a powerful tool for creating software, including build
    systems.
 
-We need to leverage these change agents and rethink the world of connected
-products. The key shift is this: stop borrowing only the _technology_ of modern
+We can leverage these change agents and rethink the world of connected products.
+The key shift is this: stop borrowing only the _technology_ of modern
 ecosystems, and start borrowing their _process_ too. When we adopt Rust or
 Python and take the language but force it into the old build process, it's a bit
 like running a train on a paved road. The win comes from adopting how those

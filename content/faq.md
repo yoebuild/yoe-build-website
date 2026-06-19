@@ -21,6 +21,30 @@ its principles. If you're looking for that project, head over to
 want to get distracted with hard things right now - that will hopefully come
 later.
 
+## Is Yoe created with AI?
+
+Yes, a good bit of the code is written by Claude Code driven by
+[specs and plans](https://github.com/yoebuild/yoe/blob/main/docs/SPEC_PLAN_INDEX.md).
+As of 2026-06-19, I have put 156 hours into this project over roughly 2.5
+months. While this represents a significant investment on my part, there is no
+way I could have gotten this far in this short a time without Claude Code. The
+code could no doubt be better if hand-crafted, but with the spec/planning
+process, I feel the result is acceptable. The main problems I've encountered
+with AI-generated code are architectural, and extensive review at the
+spec/planning stage helps mitigate them.
+
+Most of the [documentation](https://docs.yoebuild.org/) is AI-generated as well.
+While this is not ideal, again I don't have the resources at this time to
+manually write all the documentation. Much of the documentation at this point is
+based on research across the vast range of build-system options, which Claude
+does well.
+
+## Is Yoe something new?
+
+In some ways it is; in other ways it is mostly a combination of things that
+already exist (Starlark, existing distros, etc.). We are trying to combine the
+best ideas into something useful.
+
 ## What are the biggest risks this project faces?
 
 Plenty — this is an experiment, and being honest about what could derail it
