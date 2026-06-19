@@ -45,6 +45,16 @@ In some ways it is; in other ways it is mostly a combination of things that
 already exist (Starlark, existing distros, etc.). We are trying to combine the
 best ideas into something useful.
 
+## Why Go and Starlark?
+
+Go gives us a single statically linked binary, fast builds, and strong
+concurrency for orchestrating parallel work — a good fit for a CLI tool that
+runs everywhere. Starlark, the configuration language from Bazel, gives unit
+definitions a familiar Python-like syntax that stays deterministic and
+sandboxed, so builds are reproducible and units can be reasoned about (and
+generated) safely. The [language choices](https://docs.yoebuild.org/language-choices.html)
+doc walks through the tradeoffs in more detail.
+
 ## What are the biggest risks this project faces?
 
 Plenty — this is an experiment, and being honest about what could derail it
