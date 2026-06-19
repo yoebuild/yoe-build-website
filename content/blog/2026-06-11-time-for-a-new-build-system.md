@@ -65,13 +65,15 @@ work without complex `do_fetch` integration. That's useful when you must control
 every source, but unnecessary friction for many projects.
 
 Building everything from source in Yocto means long builds, heavy memory use,
-and powerful workstations. A stock binary distro like Debian starts development
-faster but lacks the tooling to integrate the custom parts. And vendor BSPs
-frozen on a 4-year-old Yocto make it hard to integrate modern software at all.
+and powerful workstations. While there are
+[various efforts](https://docs.yoebuild.org/comparisons.html#embedded-debian-efforts)
+to build embedded systems with Debian, none of them approach the tooling and
+flexibility of Yocto. And vendor BSPs frozen on a 4-year-old
+Yocto make it hard to integrate modern software at all.
 
-We could go on, but embedded Linux is still hard. Talented teams working hard
-still hit substantial obstacles, because the problem is inherently difficult and
-the software keeps getting harder to build.
+We could go on, but embedded Linux is still hard. Talented teams still hit
+substantial obstacles, because the problem is inherently difficult and the
+software keeps getting harder to build.
 
 To summarize, three things have changed:
 
@@ -79,14 +81,14 @@ To summarize, three things have changed:
    systems: continuous updates, not a multi-year freeze.
 2. **Cross-compilation is getting more difficult in some areas.** Especially
    with Python and Node.js, where much of the underlying software is written in
-   C/C++ with fragile build systems. Granted, cross-compilation in languages like
-   Go and Zig is getting easier.
+   C/C++ with fragile build systems. Granted, cross-compilation in languages
+   like Go and Zig is getting easier.
 3. **The old tradeoffs still exist and are getting more pronounced.**
    Build-from-source (Yocto) is slow and heavy; stock distros (Debian) lack
    custom tooling.
 
-The old model is good. The real question is whether it still fits the product
-you're building and the team you have.
+The old model has worked well. The real question is whether it still fits the
+product you're building and the team you have.
 
 ## Small teams have different problems, not smaller ones
 
@@ -131,7 +133,7 @@ in recent times:
 We can leverage these change agents and rethink the world of connected products.
 The key shift is this: stop borrowing only the _technology_ of modern
 ecosystems, and start borrowing their _process_ too. When we adopt Rust or
-Python and take the language but force it into the old build process, it's a bit
+Python and take the language but force it into an old build process, it's a bit
 like running a train on a paved road. The win comes from adopting how those
 ecosystems build, package, and cache, not just what they produce.
 
