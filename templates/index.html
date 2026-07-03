@@ -7,14 +7,15 @@
     <div class="hero__eyebrow">An exploration in embedded Linux</div>
     <h1>Embedded Linux — <em class="hero-emphasis">without tears</em></h1>
     <p class="hero__lede">
-      A set of experiments in what the next-generation embedded Linux build system could look
-      like: native builds, modern languages first-class, AI that understands the
-      system, one tool from laptop to production. Pre-1.0 and rough around the
+      A next-generation embedded Linux build system optimized for the day-to-day developer experience.
+      Software that used to mean a day of fighting cross-compilation now goes from
+      idea to running on target hardware in minutes. Pre-1.0 and rough around the
       edges — we're sharing the work as it takes shape.
     </p>
     <div class="hero__cta">
       <a href="#what-were-exploring" class="btn btn--primary">See what we're exploring →</a>
-      <a href="{{ config.extra.github_url }}" class="btn btn--ghost" target="_blank" rel="noopener">Follow along on GitHub</a>
+      <a href="{{ config.extra.github_url }}" class="btn btn--ghost" target="_blank" rel="noopener">Follow along on
+        GitHub</a>
     </div>
   </div>
 </section>
@@ -28,8 +29,9 @@
         <span class="yoe-mark">[yoe]</span> next-gen is a vendor-neutral project, built in
         the open to help small teams do big things. Small teams and startups don't have an
         enterprise's problems at smaller scale — they have different problems, and we build
-        for those. Three north stars guide the experiment — everything else is in service of
-        these.
+        for those. One priority guides everything: the day-to-day developer experience —
+        fast, transparent, efficient, and approachable. The goals below are how that priority
+        shows up, and every other concern is secondary.
       </p>
     </div>
 
@@ -49,11 +51,11 @@
           straightforward, not a custom integration project each time.</p>
       </div>
       <div class="card">
-        <div class="card__icon">03 / Scale</div>
-        <h3>Scale to build anything</h3>
-        <p>From tiny Zephyr images to complex AI workloads. From one application to a
-          complete distributed system — one tool, one mental model, with caching that
-          keeps up as projects grow.</p>
+        <div class="card__icon">03 / Grow</div>
+        <h3>Start simple, grow from there</h3>
+        <p>The first goal is to do the simplest thing well: a read/write root filesystem with
+          bootloader, kernel, and applications. One tool, one mental model, with caching that
+          keeps up as the project grows. Immutability, containers, and more can follow.</p>
       </div>
     </div>
   </div>
@@ -77,7 +79,8 @@
     <div class="pain">
       <div class="pain__item">
         <h3>Cross-compilation friction</h3>
-        <p>Sysroot management, host contamination, mismatched <code>pkg-config</code> — time better spent shipping
+        <p>There is still a lot of software not designed for cross-compilation, resulting in
+          embedded engineers debugging these issues — time better spent shipping
           features.</p>
       </div>
       <div class="pain__item">
@@ -87,7 +90,8 @@
       </div>
       <div class="pain__item">
         <h3>Stack traces from generated shell</h3>
-        <p>A failure ten layers deep in machine-generated bash, and the actual fix lives elsewhere in the recipe tree.</p>
+        <p>A failure ten layers deep in machine-generated bash, and the actual fix lives elsewhere in the recipe tree.
+        </p>
       </div>
       <div class="pain__item">
         <h3>Modern languages deserve first-class support</h3>
@@ -118,6 +122,8 @@
         layer — kernel, root filesystem, and applications — natively on the target architecture, with no
         cross-compilation toolchain and no SDK handoff. One engine, three ways to drive it: a traditional
         CLI, an interactive TUI, and an AI assistant. Pieces work today; pieces are still on the bench.
+        Much like the Go language, the aim is not to be the best at any single thing, but good
+        enough at all of them while keeping the developer experience excellent.
       </p>
     </div>
 
@@ -138,8 +144,10 @@
       <div class="card">
         <div class="card__icon">03 / AI</div>
         <h3>AI as a first-class interface</h3>
-        <p>Starlark units, queryable dependency graphs, structured logs. An assistant can create units from a URL,
-          diagnose a failed build, audit CVEs, and trace why a package is in your image.</p>
+        <p>Starlark units, queryable dependency graphs, structured logs. Integrated debugging
+          of build failures. Also
+          create units from a URL, audit CVEs, and trace why a package is in your image.
+        </p>
       </div>
       <div class="card">
         <div class="card__icon">04 / No SDK</div>
@@ -150,13 +158,15 @@
       <div class="card">
         <div class="card__icon">05 / Cache</div>
         <h3>Cached at the unit level</h3>
-        <p>Every unit produces a content-addressed package — apk or deb. Most developers never rebuild — they pull. Local, team, and
+        <p>Every unit produces a content-addressed package — apk or deb. Most developers never rebuild — they pull.
+          Local, team, and
           global cache layers, no global lock.</p>
       </div>
       <div class="card">
         <div class="card__icon">06 / Sandboxed</div>
         <h3>Per-unit container, bwrap-isolated</h3>
-        <p>Each unit runs in its own Docker container with a bubblewrap sandbox. Toolchain pinning per-unit/task; no host
+        <p>Each unit runs in its own Docker container with a bubblewrap sandbox. Toolchain pinning per-unit/task; no
+          host
           pollution; no leaks between build units.</p>
       </div>
       <div class="card">
@@ -179,8 +189,7 @@
           All you need is one self-contained tool, Docker, and Git. No global state, no hidden
           caches, no SDK to install. The first build assembles a Docker
           toolchain container, fetches default unit modules, and produces a
-          bootable QEMU image. Expect rough edges — this is an experiment, and
-          we'd love to hear what breaks.
+          bootable QEMU image. We'd love to hear what you think.
         </p>
         <p>
           For ARM64, register QEMU user-mode once with
@@ -196,8 +205,9 @@
       <div class="demo__code">
         <div class="demo__code-header">~/yoe-test &nbsp;·&nbsp; bash</div>
         {# whitespace inside <pre> is rendered verbatim — load from a file so
-           HTML formatters can never re-indent it #}
-        <pre><code class="language-sh">{{ load_data(path="static/snippets/quickstart.sh", format="plain") }}</code></pre>
+          HTML formatters can never re-indent it #}
+          <pre><code class="language-sh">{{ load_data(path="static/snippets/quickstart.sh", format="plain") }}</code>
+          </pre>
       </div>
     </div>
   </div>
@@ -229,10 +239,10 @@
       </div>
       <div class="card">
         <div class="card__icon">AI</div>
-        <h3>An assistant can carry the load</h3>
+        <h3>An assistant that shares the load</h3>
         <p>The hardest part of embedded Linux isn't writing recipes — it's knowing which knobs to turn and why.
-          Structured Starlark and a queryable graph let an AI do the legwork, so developers can stay focused on the
-          product instead of holding the whole build system in their head.</p>
+          Structured Starlark and a queryable graph let an AI help with the legwork. Making the system simpler
+          for humans makes it simpler for AI too, so both move faster and developers stay focused on the product.</p>
       </div>
     </div>
   </div>
@@ -251,8 +261,8 @@
       If any of this resonates, come think it through with us.
     </p>
     <div class="hero__cta" style="justify-content: center;">
-      <a href="https://docs.yoebuild.org/#-getting-started" class="btn btn--primary" target="_blank"
-        rel="noopener">Read the quickstart →</a>
+      <a href="https://docs.yoebuild.org/#-getting-started" class="btn btn--primary" target="_blank" rel="noopener">Read
+        the quickstart →</a>
       <a href="{{ get_url(path='blog/') }}" class="btn btn--ghost">Latest news</a>
     </div>
   </div>
