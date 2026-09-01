@@ -10,6 +10,8 @@ yoebuild_deploy() {
 	echo "Building site with Zola..."
 	cd "$SCRIPT_DIR" || return 1
 	zola build || return 1
+	echo "Making feed links absolute for email..."
+	python3 "$SCRIPT_DIR/scripts/absolutize-feed-links.py" "$SCRIPT_DIR" || return 1
 	echo "Deploying to $DEPLOY_TARGET..."
 	rsync -avz --delete public/ "$DEPLOY_TARGET"
 }
