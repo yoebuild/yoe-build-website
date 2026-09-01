@@ -134,7 +134,7 @@ choice there.
 The problems a startup or ten-person product team faces aren't a smaller version
 of an enterprise's — they're often different problems entirely. Tools built for
 Google scale import that operational cost without the payoff (the
-[_You Are Not Google_](https://blog.bradfieldcs.com/you-are-not-google-84912cf44afb)
+[_You Are Not Google_](https://medium.com/@ozanonay/you-are-not-google-84912cf44afb)
 point — and why so many small teams end up running Kubernetes to deploy three
 containers). `[yoe]` is calibrated for the problems small teams and startups
 actually have.
