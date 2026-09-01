@@ -16,7 +16,7 @@
             {% endif %}
             <h2><a href="{{ page.permalink }}">{{ page.title }}</a></h2>
             {% if page.description or page.summary %}
-              <p class="post-card__excerpt">{{ page.description | default(value=page.summary | striptags | truncate(length=240)) }}</p>
+              <p class="post-card__excerpt">{% if page.description %}{{ page.description }}{% else %}{{ page.summary | striptags | truncate(length=240) }}{% endif %}</p>
             {% endif %}
           </li>
         {% endfor %}

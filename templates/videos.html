@@ -24,7 +24,7 @@
 
   {% if feed and feed.feed and feed.feed.entry %}
     {% set entries = feed.feed.entry %}
-    {% if entries.0 is not defined %}{% set entries = [entries] %}{% endif %}
+    {% if entries[0] is not defined %}{% set entries = [entries] %}{% endif %}
 
     <div class="video-list">
       {% for entry in entries %}
