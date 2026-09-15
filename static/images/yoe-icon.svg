@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- [y] icon for favicons - the full [yoe] wordmark is unreadable at tab size.
+     Glyph outlines lifted from yoe-logo-amber.svg so the shapes match exactly:
+     the right bracket is pulled in beside the "y", and the group is scaled to
+     72% of the 360x360 square and centered. -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 360 360" width="360" height="360">
+  <rect width="360" height="360" fill="#000000"/>
+  <g transform="translate(-65.31, -7.00) scale(1.963600)" fill="#e8863a">
+    <path d="M83.97 138.56L58.72 138.56L58.72 48.32L83.97 48.32L83.97 57.73L69.09 57.73L69.09 129.15L83.97 129.15L83.97 138.56Z"/>
+    <path d="M122.86 145.28L112.02 145.28L119.70 124.93L99.92 75.20L110.96 75.20L122.19 104.96Q123.06 107.07 123.82 109.57Q124.59 112.06 124.88 113.98L124.88 113.98Q125.26 112.06 125.98 109.57Q126.70 107.07 127.47 104.96L127.47 104.96L137.94 75.20L148.88 75.20L122.86 145.28Z"/>
+    <path transform="translate(-110.25, 0)" d="M301.38 138.56L276.13 138.56L276.13 129.15L291.01 129.15L291.01 57.73L276.13 57.73L276.13 48.32L301.38 48.32L301.38 138.56Z"/>
+  </g>
+</svg>

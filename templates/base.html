@@ -20,7 +20,8 @@
   <link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:ital,wght@1,700;1,800&family=Fraunces:ital,opsz,wght@1,9..144,300;1,9..144,400&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 
   <link rel="stylesheet" href="{{ get_url(path='main.css', cachebust=true) }}">
-  <link rel="icon" type="image/svg+xml" href="{{ get_url(path='images/yoe-logo-amber.svg') }}">
+  <link rel="icon" type="image/svg+xml" href="{{ get_url(path='images/yoe-icon.svg') }}">
+  <link rel="icon" type="image/png" sizes="64x64" href="{{ get_url(path='images/favicon.png') }}">
   {% if config.generate_feeds %}
     <link rel="alternate" type="application/atom+xml" title="{{ config.title }} feed" href="{{ get_url(path='atom.xml', trailing_slash=false) }}">
   {% endif %}
